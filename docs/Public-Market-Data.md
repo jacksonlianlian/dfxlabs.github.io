@@ -1,101 +1,99 @@
-#1、 Get Depth information
-##GET `/api/v1/spot/depth`
+# 1. Get Depth information
 
+## GET `/api/v1/spot/depth`
 
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
 | symbol | STRING | YES | Trading pair |
 
----
-	*Success*
-	``` markdown
-		{
-		"code": "0",
-		"msg": "success",
-		"data": {
-			"lastUpdateId": 21302031,
-			"symbol": "BTC-USDT",
-			"asks": [
-				["69185.83", "0.001"],
-				["69203.83", "0.00012"],
-				["69215.83", "0.00052"],
-				["69239.83", "0.00068"],
-				["69256.83", "0.00022"],
-				["69313.83", "0.00041"],
-				["69606.81", "0.00041"],
-				["69615.81", "0.00143"],
-				["69626.81", "0.0014"],
-				["69630.81", "0.00008"]
-			],
-			"bids": [
-				["69153.83", "0.00062"],
-				["69147.83", "0.0009"],
-				["69023.83", "0.00091"],
-				["68976.83", "0.00011"],
-				["68954.83", "0.00043"],
-				["68875.83", "0.001"],
-				["68822.83", "0.00072"],
-				["68771.83", "0.00139"],
-				["68644.81", "0.00117"],
-				["68642.81", "0.00097"]
+
+
+``` java
+{
+	"code": "0",
+	"msg": "success",
+	"data": {
+		"lastUpdateId": 21302031,
+		"symbol": "BTC-USDT",
+		"asks": [
+					["69185.83", "0.001"],
+					["69203.83", "0.00012"],
+					["69215.83", "0.00052"],
+					["69239.83", "0.00068"],
+					["69256.83", "0.00022"],
+					["69313.83", "0.00041"],
+					["69606.81", "0.00041"],
+					["69615.81", "0.00143"],
+					["69626.81", "0.0014"],
+					["69630.81", "0.00008"]
+				],
+		"bids": [
+					["69153.83", "0.00062"],
+					["69147.83", "0.0009"],
+					["69023.83", "0.00091"],
+					["68976.83", "0.00011"],
+					["68954.83", "0.00043"],
+					["68875.83", "0.001"],
+					["68822.83", "0.00072"],
+					["68771.83", "0.00139"],
+					["68644.81", "0.00117"],
+					["68642.81", "0.00097"]
 			]
 		}
 	}
-	```
+```
 
 
 
-!!! info "2、 Get Recent Transaction Records information."
-	GET `/api/v1/spot/trade`
-
-!!! tip "Parameters"
-	| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
-	| --- | --- | --- | --- |
-	| symbol | STRING | YES | Trading pair |
-	| limit             | INT    | YES | record limit,eg:30
+# 2. Get Recent Transaction Records information
+## GET `/api/v1/spot/trade`
 
 
-!!! example "Response Example "
-	=== "Success"
-		``` markdown
-		{
-			"code": "0",
-			"msg": "success",
-			"data": [{
-				"price": "69169.83",
-				"quantity": "0.00107",
-				"amount": "74.0117181",
-				"time": "1712741081857",
-				"isBuyerMaker": true
-			}, {
-				"price": "69137.81",
-				"quantity": "0.00078",
-				"amount": "53.9274918",
-				"time": "1712741076833",
-				"isBuyerMaker": true
-			}
+| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
+| --- | --- | --- | --- |
+| symbol | STRING | YES | Trading pair |
+| limit             | INT    | YES | record limit,eg:30
+
+
+
+``` java
+{
+	"code": "0",
+	"msg": "success",
+	"data": [{
+			"price": "69169.83",
+			"quantity": "0.00107",
+			"amount": "74.0117181",
+			"time": "1712741081857",
+			"isBuyerMaker": true
+		}, {
+			"price": "69137.81",
+			"quantity": "0.00078",
+			"amount": "53.9274918",
+			"time": "1712741076833",
+			"isBuyerMaker": true
 		}
-		```
+	}]
+```
 
 
 
-!!! info "3、 Get Kline information."
-	GET `/api/v1/spot/kline`
-
-!!! tip "Parameters"
-	| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
-	| --- | --- | --- | --- |
-	| symbol | STRING | YES | Trading pair |
-	| limit  | INT | NO | record limit,eg:30
-	| interval | STRING    | YES | kline type,eg:`M1, M3, M5, M15, M30, H1, H2, H4, H6, H8, H12, D1, W1, MON1`
-	| startTime    | LONG    | NO | StartTime in milliseconds ,eg:1678772870000
-	| endTime    | LONG    | NO | endTime in milliseconds ,eg:1678772870000
+# 3. Get Kline information
+## GET `/api/v1/spot/kline`
 
 
-!!! example "Response Example "
-	=== "Success"
-		``` markdown
+| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
+| --- | --- | --- | --- |
+| symbol | STRING | YES | Trading pair |
+| limit  | INT | NO | record limit,eg:30
+| interval | STRING    | YES | kline type,eg:`M1, M3, M5, M15, M30, H1, H2, H4, H6, H8, H12, D1, W1, MON1`
+| startTime    | LONG    | NO | StartTime in milliseconds ,eg:1678772870000
+| endTime    | LONG    | NO | endTime in milliseconds ,eg:1678772870000
+
+
+
+``` java
 		{
 			"code": "0",
 			"msg": "success",
@@ -113,113 +111,108 @@
 			]
 		}
 
-		```
+```
 
 
 
-!!! info "4、 Get Quotes in the last 24 hours information."
-	GET `/api/v1/spot/ticker/24hr`
-
-!!! tip "Parameters"
-	| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
-	| --- | --- | --- | --- |
-	| symbol | STRING | YES | Trading pair |
+# 4. Get Quotes in the last 24 hours information
+## GET `/api/v1/spot/ticker/24hr`
 
 
-
-!!! example "Response Example "
-	=== "Success"
-		``` markdown
-		{
-			"code": "0",
-			"msg": "success",
-			"data": {
-				"symbol": "BTC-USDT",
-				"priceChange": "-1358.93",
-				"priceChangePercent": "-1.93",
-				"weightedAvgPrice": "69207.1619993331955896",
-				"lastPrice": "69169.83",
-				"openPrice": "70528.76",
-				"highPrice": "70529.1",
-				"lowPrice": "68727.05",
-				"amount": "147380.8039073"
-			}
-		}
-
-		```
-
-
-
-!!! info "5、 Get Latest price information."
-	GET `/api/v1/spot/ticker/price`
-
-!!! tip "Parameters"
-	| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
-	| --- | --- | --- | --- |
-	| symbol | STRING | YES | Trading pair |
-
-
-
-!!! example "Response Example "
-	=== "Success"
-		``` markdown
-		{
-			"code": "0",
-			"msg": "success",
-			"data": "69169.83"
-		}
-
-		```
+| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
+| --- | --- | --- | --- |
+| symbol | STRING | YES | Trading pair |
 
 
 
 
-!!! info "6、 Get Symbol Order Top Of Book information."
-	GET `/api/v1/spot/ticker/book_ticker`
+``` java
+{
+	"code": "0",
+	"msg": "success",
+	"data": {
+		"symbol": "BTC-USDT",
+		"priceChange": "-1358.93",
+		"priceChangePercent": "-1.93",
+		"weightedAvgPrice": "69207.1619993331955896",
+		"lastPrice": "69169.83",
+		"openPrice": "70528.76",
+		"highPrice": "70529.1",
+		"lowPrice": "68727.05",
+		"amount": "147380.8039073"
+	}
+}
 
-!!! tip "Parameters"
-	| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
-	| --- | --- | --- | --- |
-	| symbol | STRING | YES | Trading pair |
-
-
-
-!!! example "Response Example "
-	=== "Success"
-		``` markdown
-		{
-			"code": "0",
-			"msg": "success",
-			"data": {
-				"symbol": "BTC-USDT",
-				"ask": [
-					["69185.83", "0.001"]
-				],
-				"bid": [
-					["69153.83", "0.00062"]
-				],
-				"time": 1712741085087
-			}
-		}
-
-		```
+```
 
 
 
-!!! info "7、 Get Symbol Basic information."
-	GET `/api/v1/symbols`
-
-!!! tip "Parameters"
-	| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
-	| --- | --- | --- | --- |
-	| symbol | STRING | NO | Trading pair, eg:`BTC-USD` |
-	| clientType | STRING | YES | Client Type, eg:`OP,CP,IP,CR,IR` |
+# 5. Get Latest price information
+GET `/api/v1/spot/ticker/price`
 
 
+| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
+| --- | --- | --- | --- |
+| symbol | STRING | YES | Trading pair |
 
-!!! example "Response Example "
-	=== "Success"
-		``` markdown
+
+
+
+``` java
+{
+	"code": "0",
+	"msg": "success",
+	"data": "69169.83"
+}
+
+```
+
+
+
+
+# 6. Get Symbol Order Top Of Book information.
+## GET `/api/v1/spot/ticker/book_ticker`
+
+| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
+| --- | --- | --- | --- |
+| symbol | STRING | YES | Trading pair |
+
+
+
+
+``` java
+{
+	"code": "0",
+	"msg": "success",
+	"data": {
+		"symbol": "BTC-USDT",
+		"ask": [
+			["69185.83", "0.001"]
+		],
+		"bid": [
+			["69153.83", "0.00062"]
+		],
+		"time": 1712741085087
+	}
+}
+
+```
+
+
+
+# 7. Get Symbol Basic information.
+## GET `/api/v1/symbols`
+
+
+| **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
+| --- | --- | --- | --- |
+| symbol | STRING | NO | Trading pair, eg:`BTC-USD` |
+| clientType | STRING | YES | Client Type, eg:`OP,CP,IP,CR,IR` |
+
+
+
+
+``` java
 		{
 			"code": "0",
 			"msg": "success",
