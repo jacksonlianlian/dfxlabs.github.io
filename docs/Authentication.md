@@ -14,9 +14,8 @@
 
 
 
-### Signature Authentication
+## Signature Authentication
 --------------------------------------------------------------------
-???+ warning
     If you are going to access the **TRADE & USER_DATA** related api interface, you need to add the **EXCHANGE-API-SIGN** field in the header, and it needs to have a legal and correct value;
 
 	| Column | Description |
@@ -27,8 +26,8 @@
 
 	if you are going to access the **MARKET_DATA** related api interface , the **EXCHANGE-API-KEY**、**EXCHANGE-API-SIGN** field is not required, but the **EXCHANGE-API-TIMESTAMP** field is required.
 
-### Signature (TRADE & USER_DATA)
-!!! tip ""
+## Signature (TRADE & USER_DATA)
+
 
 	* The SIGNED (signature required) endpoint needs to send a parameter, signature, in the **query string** or **request body**.
 
@@ -46,36 +45,35 @@
 	| EXCHANGE-API-SIGN | PARAM SING | String | The Sign for Authentication purposes, user and transaction related endpoints must pass this field|
 	| EXCHANGE-API-TIMESTAMP | TIMESTAMP  | Long | milliseconds, such as 1706772548231, Used to indicate the time when the request was initiated |
 
-???+ tip "Time-base security requirement"
-    If your timestamp is ahead of serverTime it needs to be within 1 second + serverTime
+#### Time-base security requirement
+    If your timestamp is ahead of serverTime it needs to be within 1 Mins
 
 	*   For a SIGNED endpoint, an additional parameter "timestamp" needs to be included in the request. This timestamp is in **milliseconds** and reflect the time when the request was intitated
-	*   The timestamp is based on the server's time and cannot exceed 1000 milliseconds before or after.
-???+ tip
-    If your timestamp is ahead of serverTime it needs to be within 1 second + serverTime
+	*   The timestamp is based on the server's time and cannot exceed 1 Mins before or after.
+
 
 	The logic of this parameter is as follows:
 
-	``` py title="Java"
-	 if (timestamp.between(serverTime - 1000, serverTime + 1000))) {
-		 // process request
-	 } else {
-		 // reject request
-	 }
+``` java
+ if (timestamp.between(serverTime - 60000, serverTime + 60000))) {
+	 // process request
+ } else {
+	 // reject request
+ }
 
-	```
+```
 
 	*   Trading and timeliness are closely interconnected. Network can sometimes be unstable or unreliable, which can lead to inconsistent times when requests are sent to the server.
-	*   With **recvWindow**, you can specify how many milliseconds the request is valid, otherwise it will be rejected by the server.
-
-???+ tip
-    A relatively small recvWindow (5000 or less) is recommended!
+~~With **recvWindow**, you can specify how many milliseconds the request is valid, otherwise it will be rejected by the server.~~
 
 
-## How to sign request parameters
+~~A relatively small recvWindow (5000 or less) is recommended!~~
 
 
-???+ tip
+### How to sign request parameters
+
+
+#### tip
 
 	The following fields need to be filled in when signing, and then sorted in ascending order according to the parameter name. The finally sorted string will be encrypted.
 
@@ -88,394 +86,367 @@
 	| timestamp| timestamp in milliseconds |
 
 
-???+ warning
+#### warn
     1. The above parameters need to be spliced in ascending order of parameter names A_Z and connected with the symbol "&". Signature verification will fail if the order is wrong or if the parameter names are wrong.
     2. **You only need to sort `body`, `method`, `param`, `path`, `timestamp`, and there is no need to sort the values inside parm and body. For example, param=BAC does not need to be sorted into param=ABC! The same goes for the body field**
 
 ###  Example 1: param in queryString
 
 
-!!! example "Example 1: param in queryString"
-
-    === "Java"
-
-        ``` markdown
-		* Step 1.If your request parameters are as follows
-		*
-        * apiUrl：https://$HOST/api/v1/symbols
-		* method: GET
-		* timestamp: 1711351755000
-		* param: `clientType=OP`
-		* body: null
-
-        ```
+#### "Example 1: param in queryString"
 
 
-        ``` markdown
-		* Step 2.Example Code
 
-		import cn.hutool.core.util.StrUtil;
-		import org.bouncycastle.jce.provider.BouncyCastleProvider;
-		import java.nio.file.Files;
-		import java.nio.file.Paths;
-		import java.security.KeyFactory;
-		import java.security.PrivateKey;
-		import java.security.Security;
-		import java.security.Signature;
-		import java.security.spec.PKCS8EncodedKeySpec;
-		import java.util.Base64;
-		import java.util.Map;
-		import java.util.TreeMap;
+``` java
+* Step 1.If your request parameters are as follows
+*
+* apiUrl：https://$HOST/api/v1/symbols
+* method: GET
+* timestamp: 1711351755000
+* param: `clientType=OP`
+* body: null
 
-		public class SignatureExample {
-			public static void main(String[] args) throws Exception {
-				Security.addProvider(new BouncyCastleProvider());
-				String timestamp = "1711351755000";
-				String method = "GET";
-				String path = "/api/v1/symbols";
-				String param = "clientType=OP";
-				String body = "";
+```
 
-				Map<String, String> paramMap = new TreeMap<>();
-				paramMap.put("path", path);
-				paramMap.put("method", method);
-				paramMap.put("timestamp", timestamp);
-				if (StrUtil.isNotBlank(param)) {
-					paramMap.put("param", param);
-				}
-				if (StrUtil.isNotBlank(body)) {
-					paramMap.put("body", body);
-				}
 
-				String message = StrUtil.join("&", paramMap.entrySet().iterator());
+``` markdown
+* Step 2.Example Code
 
-				Signature signature = Signature.getInstance("Ed25519", "BC");
-				byte[] privateKeyBytes = Files.readAllBytes(Paths.get("/Users/local/private_key.pem"));
+import cn.hutool.core.util.StrUtil;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.Security;
+import java.security.Signature;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.Base64;
+import java.util.Map;
+import java.util.TreeMap;
 
-				// Convert private key bytes to PrivateKey object
-				PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
-				KeyFactory keyFactory = KeyFactory.getInstance("Ed25519");
-				PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
-				signature.initSign(privateKey);
-				signature.update(message.getBytes());
-				byte[] signatureBytes = signature.sign();
-				// Print signature results
-				String signResult = Base64.getEncoder().encodeToString(signatureBytes);
-				System.out.println("private Signature: " + signResult);
-			}
+public class SignatureExample {
+	public static void main(String[] args) throws Exception {
+		Security.addProvider(new BouncyCastleProvider());
+		String timestamp = "1711351755000";
+		String method = "GET";
+		String path = "/api/v1/symbols";
+		String param = "clientType=OP";
+		String body = "";
+
+		Map<String, String> paramMap = new TreeMap<>();
+		paramMap.put("path", path);
+		paramMap.put("method", method);
+		paramMap.put("timestamp", timestamp);
+		if (StrUtil.isNotBlank(param)) {
+			paramMap.put("param", param);
 		}
-        ```
-
-		``` markdown
-		* Step 3. Send Request
-
-		import java.io.BufferedReader;
-		import java.io.IOException;
-		import java.io.InputStreamReader;
-		import java.net.HttpURLConnection;
-		import java.net.URL;
-
-		public class HttpGetExample {
-			public static void main(String[] args) throws IOException {
-				String url = "https://$HOST/api/v1/symbols?clientType=OP";
-				HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-				connection.setRequestMethod("GET");
-
-				// Set request header
-				connection.setRequestProperty("EXCHANGE-API-KEY", "YOUR API-KEY");
-				connection.setRequestProperty("EXCHANGE-API-TIMESTAMP", "1711351755000");
-				connection.setRequestProperty("EXCHANGE-API-SIGN", signResult);
-
-
-				int responseCode = connection.getResponseCode();
-				System.out.println("Response Code: " + responseCode);
-
-				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-				StringBuilder response = new StringBuilder();
-				String line;
-				while ((line = reader.readLine()) != null) {
-					response.append(line);
-				}
-				reader.close();
-
-				System.out.println("Response Body: " + response.toString());
-
-				connection.disconnect();
-			}
+		if (StrUtil.isNotBlank(body)) {
+			paramMap.put("body", body);
 		}
 
+		String message = StrUtil.join("&", paramMap.entrySet().iterator());
 
-		```
+		Signature signature = Signature.getInstance("Ed25519", "BC");
+		byte[] privateKeyBytes = Files.readAllBytes(Paths.get("/Users/local/private_key.pem"));
 
-	=== "python"
+		// Convert private key bytes to PrivateKey object
+		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+		KeyFactory keyFactory = KeyFactory.getInstance("Ed25519");
+		PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+		signature.initSign(privateKey);
+		signature.update(message.getBytes());
+		byte[] signatureBytes = signature.sign();
+		// Print signature results
+		String signResult = Base64.getEncoder().encodeToString(signatureBytes);
+		System.out.println("private Signature: " + signResult);
+	}
+}
+```
 
-        ``` markdown
-        To be added
-        ```
+``` java
+* Step 3. Send Request
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class HttpGetExample {
+	public static void main(String[] args) throws IOException {
+		String url = "https://$HOST/api/v1/symbols?clientType=OP";
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setRequestMethod("GET");
+
+		// Set request header
+		connection.setRequestProperty("EXCHANGE-API-KEY", "YOUR API-KEY");
+		connection.setRequestProperty("EXCHANGE-API-TIMESTAMP", "1711351755000");
+		connection.setRequestProperty("EXCHANGE-API-SIGN", signResult);
+
+
+		int responseCode = connection.getResponseCode();
+		System.out.println("Response Code: " + responseCode);
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		StringBuilder response = new StringBuilder();
+		String line;
+		while ((line = reader.readLine()) != null) {
+			response.append(line);
+		}
+		reader.close();
+
+		System.out.println("Response Body: " + response.toString());
+
+		connection.disconnect();
+	}
+}
+
+
+```
 
 
 ###  Example 2: param in body
 
+``` markdown
+* Step 1.If your request parameters are as follows
+*
+* apiUrl：https://$HOST/api/v1/spot/order
+* method: POST
+* timestamp: 1711351755000
+* param: null
+* body:`accountId=222&amount=66666&clientOrderId=111&price=66666&quantity=1&side=BUY&symbol=BTC-USDT&type=LIMIT`
 
-!!! example "Example 2: param in body"
-
-    === "Java"
-
-        ``` markdown
-		* Step 1.If your request parameters are as follows
-		*
-        * apiUrl：https://$HOST/api/v1/spot/order
-		* method: POST
-		* timestamp: 1711351755000
-		* param: null
-		* body:`accountId=222&amount=66666&clientOrderId=111&price=66666&quantity=1&side=BUY&symbol=BTC-USDT&type=LIMIT`
-
-        ```
+```
 
 
-        ``` markdown
-		* Step 2.Example Code
+``` java
+* Step 2.Example Code
 
-		import cn.hutool.core.util.StrUtil;
-		import org.bouncycastle.jce.provider.BouncyCastleProvider;
-		import java.nio.file.Files;
-		import java.nio.file.Paths;
-		import java.security.KeyFactory;
-		import java.security.PrivateKey;
-		import java.security.Security;
-		import java.security.Signature;
-		import java.security.spec.PKCS8EncodedKeySpec;
-		import java.util.Base64;
-		import java.util.Map;
-		import java.util.TreeMap;
+import cn.hutool.core.util.StrUtil;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.Security;
+import java.security.Signature;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.Base64;
+import java.util.Map;
+import java.util.TreeMap;
 
-		public class SignatureExample {
-			public static void main(String[] args) throws Exception {
-				Security.addProvider(new BouncyCastleProvider());
-				String timestamp = "1711351755000";
-				String method = "GET";
-				String path = "/api/v1/spot/order";
-				String param = "";
-				String body = "accountId=222&amount=66666&clientOrderId=111&price=66666&quantity=1&side=BUY&symbol=BTC-USDT&type=LIMIT";
+public class SignatureExample {
+	public static void main(String[] args) throws Exception {
+		Security.addProvider(new BouncyCastleProvider());
+		String timestamp = "1711351755000";
+		String method = "GET";
+		String path = "/api/v1/spot/order";
+		String param = "";
+		String body = "accountId=222&amount=66666&clientOrderId=111&price=66666&quantity=1&side=BUY&symbol=BTC-USDT&type=LIMIT";
 
-				Map<String, String> paramMap = new TreeMap<>();
-				paramMap.put("path", path);
-				paramMap.put("method", method);
-				paramMap.put("timestamp", timestamp);
-				if (StrUtil.isNotBlank(param)) {
-					paramMap.put("param", param);
-				}
-				if (StrUtil.isNotBlank(body)) {
-					paramMap.put("body", body);
-				}
-
-				String message = StrUtil.join("&", paramMap.entrySet().iterator());
-
-				Signature signature = Signature.getInstance("Ed25519", "BC");
-				byte[] privateKeyBytes = Files.readAllBytes(Paths.get("/Users/local/private_key.pem"));
-
-				// Convert private key bytes to PrivateKey object
-				PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
-				KeyFactory keyFactory = KeyFactory.getInstance("Ed25519");
-				PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
-				signature.initSign(privateKey);
-				signature.update(message.getBytes());
-				byte[] signatureBytes = signature.sign();
-				// Print signature results
-				String signResult = Base64.getEncoder().encodeToString(signatureBytes);
-				System.out.println("private Signature: " + signResult);
-			}
+		Map<String, String> paramMap = new TreeMap<>();
+		paramMap.put("path", path);
+		paramMap.put("method", method);
+		paramMap.put("timestamp", timestamp);
+		if (StrUtil.isNotBlank(param)) {
+			paramMap.put("param", param);
 		}
-        ```
-
-		``` markdown
-
-		* Step 3. Send Request
-
-		import java.io.BufferedReader;
-		import java.io.DataOutputStream;
-		import java.io.IOException;
-		import java.io.InputStreamReader;
-		import java.net.HttpURLConnection;
-		import java.net.URL;
-		import java.nio.charset.StandardCharsets;
-
-		public class HttpPostExample {
-			public static void main(String[] args) throws IOException {
-				// interface address
-				String url = "https://$HOST/api/v1/spot/order";
-				// Request body data
-				String requestBody = "accountId=222&amount=66666&clientOrderId=111&price=66666&quantity=1&side=BUY&symbol=BTC-USDT&type=LIMIT";
-
-				// Create HttpURLConnection object
-				HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-				connection.setRequestMethod("POST");
-				connection.setDoOutput(true);
-
-				// Set request header
-								connection.setRequestProperty("EXCHANGE-API-KEY", "YOUR API-KEY");
-								connection.setRequestProperty("EXCHANGE-API-TIMESTAMP", "1711351755000");
-								connection.setRequestProperty("EXCHANGE-API-SIGN", signResult);
-				// Set request body data
-				try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
-					wr.write(requestBody.getBytes(StandardCharsets.UTF_8));
-				}
-
-				// Make a request and get a response
-				try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-					String line;
-					StringBuilder response = new StringBuilder();
-					while ((line = in.readLine()) != null) {
-						response.append(line);
-					}
-					System.out.println("Response: " + response.toString());
-				}
-
-				// close connection
-				connection.disconnect();
-			}
+		if (StrUtil.isNotBlank(body)) {
+			paramMap.put("body", body);
 		}
 
+		String message = StrUtil.join("&", paramMap.entrySet().iterator());
+
+		Signature signature = Signature.getInstance("Ed25519", "BC");
+		byte[] privateKeyBytes = Files.readAllBytes(Paths.get("/Users/local/private_key.pem"));
+
+		// Convert private key bytes to PrivateKey object
+		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+		KeyFactory keyFactory = KeyFactory.getInstance("Ed25519");
+		PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+		signature.initSign(privateKey);
+		signature.update(message.getBytes());
+		byte[] signatureBytes = signature.sign();
+		// Print signature results
+		String signResult = Base64.getEncoder().encodeToString(signatureBytes);
+		System.out.println("private Signature: " + signResult);
+	}
+}
+```
+
+``` java
+
+* Step 3. Send Request
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
+public class HttpPostExample {
+	public static void main(String[] args) throws IOException {
+		// interface address
+		String url = "https://$HOST/api/v1/spot/order";
+		// Request body data
+		String requestBody = "accountId=222&amount=66666&clientOrderId=111&price=66666&quantity=1&side=BUY&symbol=BTC-USDT&type=LIMIT";
+
+		// Create HttpURLConnection object
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setRequestMethod("POST");
+		connection.setDoOutput(true);
+
+		// Set request header
+						connection.setRequestProperty("EXCHANGE-API-KEY", "YOUR API-KEY");
+						connection.setRequestProperty("EXCHANGE-API-TIMESTAMP", "1711351755000");
+						connection.setRequestProperty("EXCHANGE-API-SIGN", signResult);
+		// Set request body data
+		try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
+			wr.write(requestBody.getBytes(StandardCharsets.UTF_8));
+		}
+
+		// Make a request and get a response
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+			String line;
+			StringBuilder response = new StringBuilder();
+			while ((line = in.readLine()) != null) {
+				response.append(line);
+			}
+			System.out.println("Response: " + response.toString());
+		}
+
+		// close connection
+		connection.disconnect();
+	}
+}
 
 
-		```
 
-	=== "python"
+```
 
-        ``` markdown
-        To be added
-        ```
 
 
 
 ###  Example 3: mixing queryString and request body
 
 
-!!! example "Example 3: mixing queryString and request body"
+``` java
+* Step 1.If your request parameters are as follows
+*
+    * apiUrl：https://$HOST/api/v1/symbols
+* method: POST
+* timestamp: 1711351755000
+* param: `clientType=OP`
+* body:  `pageNo=1&pageSize=10`
 
-    === "Java"
-
-        ``` markdown
-		* Step 1.If your request parameters are as follows
-		*
-        * apiUrl：https://$HOST/api/v1/symbols
-		* method: POST
-		* timestamp: 1711351755000
-		* param: `clientType=OP`
-		* body:  `pageNo=1&pageSize=10`
-
-        ```
+    ```
 
 
-        ``` markdown
-		* Step 2.Example Code
+    ``` markdown
+* Step 2.Example Code
 
-		import cn.hutool.core.util.StrUtil;
-		import org.bouncycastle.jce.provider.BouncyCastleProvider;
-		import java.nio.file.Files;
-		import java.nio.file.Paths;
-		import java.security.KeyFactory;
-		import java.security.PrivateKey;
-		import java.security.Security;
-		import java.security.Signature;
-		import java.security.spec.PKCS8EncodedKeySpec;
-		import java.util.Base64;
-		import java.util.Map;
-		import java.util.TreeMap;
+import cn.hutool.core.util.StrUtil;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.Security;
+import java.security.Signature;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.Base64;
+import java.util.Map;
+import java.util.TreeMap;
 
-		public class SignatureExample {
-			public static void main(String[] args) throws Exception {
-				Security.addProvider(new BouncyCastleProvider());
-				String timestamp = "1711351755000";
-				String method = "GET";
-				String path = "/api/v1/symbols";
-				String param = "clientType=OP";
-				String body = "pageNo=1&pageSize=10";
+public class SignatureExample {
+	public static void main(String[] args) throws Exception {
+		Security.addProvider(new BouncyCastleProvider());
+		String timestamp = "1711351755000";
+		String method = "GET";
+		String path = "/api/v1/symbols";
+		String param = "clientType=OP";
+		String body = "pageNo=1&pageSize=10";
 
-				Map<String, String> paramMap = new TreeMap<>();
-				paramMap.put("path", path);
-				paramMap.put("method", method);
-				paramMap.put("timestamp", timestamp);
-				if (StrUtil.isNotBlank(param)) {
-					paramMap.put("param", param);
-				}
-				if (StrUtil.isNotBlank(body)) {
-					paramMap.put("body", body);
-				}
-
-				String message = StrUtil.join("&", paramMap.entrySet().iterator());
-
-				Signature signature = Signature.getInstance("Ed25519", "BC");
-				byte[] privateKeyBytes = Files.readAllBytes(Paths.get("/Users/local/private_key.pem"));
-
-				// 将私钥字节转换为 PrivateKey 对象
-				PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
-				KeyFactory keyFactory = KeyFactory.getInstance("Ed25519");
-				PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
-				signature.initSign(privateKey);
-				signature.update(message.getBytes());
-				byte[] signatureBytes = signature.sign();
-				// 打印签名结果
-				String signResult = Base64.getEncoder().encodeToString(signatureBytes);
-				System.out.println("private Signature: " + signResult);
-			}
+		Map<String, String> paramMap = new TreeMap<>();
+		paramMap.put("path", path);
+		paramMap.put("method", method);
+		paramMap.put("timestamp", timestamp);
+		if (StrUtil.isNotBlank(param)) {
+			paramMap.put("param", param);
 		}
-        ```
-
-		``` markdown
-		* Step 3. Send Request
-
-		import java.io.BufferedReader;
-		import java.io.DataOutputStream;
-		import java.io.IOException;
-		import java.io.InputStreamReader;
-		import java.net.HttpURLConnection;
-		import java.net.URL;
-		import java.nio.charset.StandardCharsets;
-
-		public class HttpPostExample {
-			public static void main(String[] args) throws IOException {
-				// interface address
-				String url = "https://$HOST/api/v1/symbols?clientType=OP";
-				// Request body data
-				String requestBody = "pageNo=1&pageSize=10";
-
-				// Create HttpURLConnection object
-				HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-				connection.setRequestMethod("POST");
-				connection.setDoOutput(true);
-
-				// Set request header
-								connection.setRequestProperty("EXCHANGE-API-KEY", "YOUR API-KEY");
-								connection.setRequestProperty("EXCHANGE-API-TIMESTAMP", "1711351755000");
-								connection.setRequestProperty("EXCHANGE-API-SIGN", signResult);
-				// Set request body data
-				try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
-					wr.write(requestBody.getBytes(StandardCharsets.UTF_8));
-				}
-
-				// Make a request and get a response
-				try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-					String line;
-					StringBuilder response = new StringBuilder();
-					while ((line = in.readLine()) != null) {
-						response.append(line);
-					}
-					System.out.println("Response: " + response.toString());
-				}
-
-				// close connection
-				connection.disconnect();
-			}
+		if (StrUtil.isNotBlank(body)) {
+			paramMap.put("body", body);
 		}
 
+		String message = StrUtil.join("&", paramMap.entrySet().iterator());
+
+		Signature signature = Signature.getInstance("Ed25519", "BC");
+		byte[] privateKeyBytes = Files.readAllBytes(Paths.get("/Users/local/private_key.pem"));
+
+		// 将私钥字节转换为 PrivateKey 对象
+		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+		KeyFactory keyFactory = KeyFactory.getInstance("Ed25519");
+		PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+		signature.initSign(privateKey);
+		signature.update(message.getBytes());
+		byte[] signatureBytes = signature.sign();
+		// 打印签名结果
+		String signResult = Base64.getEncoder().encodeToString(signatureBytes);
+		System.out.println("private Signature: " + signResult);
+	}
+}
+```
+
+``` java
+* Step 3. Send Request
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
+public class HttpPostExample {
+	public static void main(String[] args) throws IOException {
+		// interface address
+		String url = "https://$HOST/api/v1/symbols?clientType=OP";
+		// Request body data
+		String requestBody = "pageNo=1&pageSize=10";
+
+		// Create HttpURLConnection object
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setRequestMethod("POST");
+		connection.setDoOutput(true);
+
+		// Set request header
+						connection.setRequestProperty("EXCHANGE-API-KEY", "YOUR API-KEY");
+						connection.setRequestProperty("EXCHANGE-API-TIMESTAMP", "1711351755000");
+						connection.setRequestProperty("EXCHANGE-API-SIGN", signResult);
+		// Set request body data
+		try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
+			wr.write(requestBody.getBytes(StandardCharsets.UTF_8));
+		}
+
+		// Make a request and get a response
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+			String line;
+			StringBuilder response = new StringBuilder();
+			while ((line = in.readLine()) != null) {
+				response.append(line);
+			}
+			System.out.println("Response: " + response.toString());
+		}
+
+		// close connection
+		connection.disconnect();
+	}
+}
 
 
-		```
 
-	=== "python"
-
-        ``` markdown
-        To be added
-        ```
+```

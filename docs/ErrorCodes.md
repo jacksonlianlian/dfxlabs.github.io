@@ -3,7 +3,7 @@ ErrorCodes
 
 ## HTTP Return Codes
 
-!!! note "code detail"
+###  Code detail
 	* HTTP `4XX` return codes are used for malformed requests;the issue is on the sender's side.
 	* HTTP `401` return code is used when signature parameters are missing or signature verification fails.
 	* HTTP `403` return code is used when there is no relevant permission to request the interface.
@@ -14,39 +14,36 @@ ErrorCodes
 
 ## Error Codes
 
-!!! example "Any endpoint can return an ERROR,Sample Payload below:"
+### Any endpoint can return an ERROR,Sample Payload below:
 
-    === "code=401"
+#### code=401
 
-        ``` markdown
-		{
-    		"code": "401",
-			"msg": "public-key has not been uploaded or has expired"
-		}
-		```
+``` java
+{
+		"code": "401",
+	"msg": "public-key has not been uploaded or has expired"
+}
+```
 
-    === "code=403"
+``` java
+{
+		"code": "403",
+	"msg": "Insufficient permissions or IP is not in the whitelist"
+}
+```
 
-        ``` markdown
-		{
-    		"code": "403",
-			"msg": "Insufficient permissions or IP is not in the whitelist"
-		}
-		```
 
-	=== "code=412"
+``` java
+{
+		"code": "412",
+	"msg": "The request header is missing `EXCHANGE-API-SIGN` parameters"
+}
+```
 
-        ``` markdown
-		{
-    		"code": "412",
-			"msg": "The request header is missing `EXCHANGE-API-SIGN` parameters"
-		}
-		```
-	=== "code=500"
 
-		``` markdown
-		{
-			"code": "500",
-			"msg": "Server internal exception"
-		}
-		```
+``` java
+{
+	"code": "500",
+	"msg": "Server internal exception"
+}
+```

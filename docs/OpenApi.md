@@ -44,65 +44,84 @@ Here's a way to generate an Ed25519 public and private key in the MacOS command 
 	MCowBQYDK2VwAyEAvge+jH1JYA576Z3uxZFbSu13diBFn3jFfsiglRBJbTM=
 	```
 
+### Api Key permission
 
-#### Upload the public key to DFX
+| Url | Method | What roles can access |Describe|
+| --- | --- | --- |--- |
+|/api/v1/spot/depth| GET| ALL|
+|/api/v1/symbols| GET| ALL|
+|/api/v1/spot/trade| GET| ALL|
+|/api/v1/spot/kline| GET| ALL|
+|/api/v1/spot/ticker/24hr| GET| ALL|
+|/api/v1/spot/ticker/price| GET| ALL|
+|/api/v1/spot/ticker/book_ticker| GET| ALL|
+|/ws/**| GET| ALL| Websocket|
+|/api/v1/user/info| GET| Administrator、Trader|
+|/api/v1/account/balance| GET| Administrator、Trader|
+|/api/v1/account/trades| GET| Administrator、Trader|Check account transaction｜
+|/api/v1/spot/test/order| POST| Administrator、Trader|Test whether the order can be created｜
+|/api/v1/spot/order| POST| Administrator、Trader|Create order|
+|/api/v1/spot/order| DELETE| Administrator、Trader|Cancel order|
+|/api/v1/spot/order| GET| Administrator、Trader|Search order|
+|/api/v1/spot/open_order| GET| Administrator、Trader|Get pending orders|
+|/api/v1/spot/finish_order| GET| Administrator、Trader|Get completed orders|
+
+
+#### Upload the Public Key to DFX
 
   Congratulations, you have completed most of the steps and victory lies ahead. Next, you need to upload the ciphertext of the generated public key to the DFX API. The specific steps are as follows:
 
-!!! note "step-1"
-	![Image title](https://dfx-test-public.s3.ap-east-1.amazonaws.com/image/step-1.png)
+### step 1
+![Image title](https://dfx-test-public.s3.ap-east-1.amazonaws.com/image/step-1.png)
 
-!!! note "step-2"
-	![Image title](https://dfx-test-public.s3.ap-east-1.amazonaws.com/image/step-2.png)
+### step 2
+![Image title](https://dfx-test-public.s3.ap-east-1.amazonaws.com/image/step-2.png)
 
-!!! note "step-3"
-	![Image title](https://dfx-test-public.s3.ap-east-1.amazonaws.com/image/step-3.png)
+### step 3
+![Image title](https://dfx-test-public.s3.ap-east-1.amazonaws.com/image/step-3.png)
 
-!!! note "step-4"
-	![Image title](https://dfx-test-public.s3.ap-east-1.amazonaws.com/image/step-4.png)
+### step 4
+![Image title](https://dfx-test-public.s3.ap-east-1.amazonaws.com/image/step-4.png)
+
 
 
 #### Use ‘Api-Key’ as ‘EXCHANGE-API-KEY’ in the request header
 
-!!! example "Example: add EXCHANGE-API-KEY to Headers"
+#### Example: Add EXCHANGE-API-KEY to Headers
 
-    === "Java"
+``` java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-		``` markdown
-		import java.io.BufferedReader;
-		import java.io.IOException;
-		import java.io.InputStreamReader;
-		import java.net.HttpURLConnection;
-		import java.net.URL;
+public class HttpGetExample {
+	public static void main(String[] args) throws IOException {
+		String url = "https://$HOST/api/v1/symbols?clientType=OP";
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setRequestMethod("GET");
 
-		public class HttpGetExample {
-			public static void main(String[] args) throws IOException {
-				String url = "https://$HOST/api/v1/symbols?clientType=OP";
-				HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-				connection.setRequestMethod("GET");
-
-				// Set request header
-				connection.setRequestProperty("EXCHANGE-API-KEY", "YOUR API-KEY");
-				connection.setRequestProperty("EXCHANGE-API-TIMESTAMP", "1711351755000");
-				connection.setRequestProperty("EXCHANGE-API-SIGN", signResult);
+		// Set request header
+		connection.setRequestProperty("EXCHANGE-API-KEY", "YOUR API-KEY");
+		connection.setRequestProperty("EXCHANGE-API-TIMESTAMP", "1711351755000");
+		connection.setRequestProperty("EXCHANGE-API-SIGN", signResult);
 
 
-				int responseCode = connection.getResponseCode();
-				System.out.println("Response Code: " + responseCode);
+		int responseCode = connection.getResponseCode();
+		System.out.println("Response Code: " + responseCode);
 
-				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-				StringBuilder response = new StringBuilder();
-				String line;
-				while ((line = reader.readLine()) != null) {
-					response.append(line);
-				}
-				reader.close();
-
-				System.out.println("Response Body: " + response.toString());
-
-				connection.disconnect();
-			}
+		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		StringBuilder response = new StringBuilder();
+		String line;
+		while ((line = reader.readLine()) != null) {
+			response.append(line);
 		}
+		reader.close();
 
+		System.out.println("Response Body: " + response.toString());
 
-		```
+		connection.disconnect();
+	}
+}
+```

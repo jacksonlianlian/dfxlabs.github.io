@@ -1,25 +1,15 @@
-###   Getting Started
+#   Getting Started
 
-!!! example  "Domain Environment"
 
-    === "Sandbox Environment"
+## Production Environment
 
-        ``` markdown
+   ``` java
         * Restful URL: [https://api.dfx-inc.com]
         * WebSocket: [wss://api.dfx-inc.com]
-        ```
-
-    === "Production Environment"
-
-        ``` markdown
-        * Restful URL: [https://api.dfx-inc.com]
-        * WebSocket: [wss://api.dfx-inc.com]
-        ```
+  ```
 
 
-###  General API Information
-
-!!! tip ""
+##  General API Information
 
     * All **responses** will return a JSON object or array.
 
@@ -35,9 +25,7 @@
 
     * Request Parameters can be sent in any order.
 
-### General Information on Endpoints
-
-!!! info ""
+## General Information on Endpoints
 
     * For `GET` endpoints, parameters must be sent as a `query string`.
     * For `POST`, `PUT`, and `DELETE` endpoints, the parameters may be sent as a `query string` or in the `request body` with content type  `application/x-www-form-urlencoded`. You may mix parameters between both the  `query string` and `request body` if you wish to do so.
@@ -45,8 +33,6 @@
     * If a parameter sent in both the `query string` and `request body`, the`query string` parameter will be used.
 
 ###  Access Restrictions
-
-!!! tip ""
 
     * The `rateLimits` array within **GET** `/api/v1/exchangeInfo` contains objects related to the`REQUEST_WEIGHT` of the transactions and `ORDERS` rate limits for trading. These are further defined in the enumeration defintion section under the limit types `rateLimitType`
 
@@ -62,7 +48,6 @@
 ###  Order Rate Limiting
 
 
-!!! info ""
 
     * Unless specified, each API Key has a rate limit of 100 requests per minute for query related and order related endpoints have 20 requests per 2 seconds
 
@@ -72,8 +57,6 @@
 
 
 ###  Endpoint Security Types
-
-!!! tip ""
 
     * Each endpoint is assigned a security type that determines how you interact with it.
 
@@ -86,7 +69,6 @@
 
 ###  API-KEY Management
 
-!!! info ""
 
     * Users have to log in the exchange website and apply for an API-KEY, please make sure to remember the following information when creating an API key:
 
@@ -101,15 +83,15 @@
     * Both private REST and WebSocket modes require users to authenticate the transaction through the API-KEY passed in the API header. Refer to the following Authentication chapter for the signature algorithm of the API-KEY.
 
 
-# Public Rest API for exchange
+## Public Rest API for exchange
 
-!!! example ""
+
     ## General API Information
     * The base endpoint is: **https://xxx.com**
     * All endpoints return either a JSON object or array.
 
     Sample Payload below:
-	```
+``` java
 	{
   	"code": "0",
   	"msg": "success",
@@ -122,20 +104,20 @@
             "buyerMaker": false
   	}
 	}
-	```
+```
 	* Data is returned in **ascending** order. Oldest first, newest last.
 	* All time and timestamp related fields are in **milliseconds**.
 
 
 ## General Information on Endpoints
-!!! info ""
+
     * For `GET` endpoints, parameters must be sent as a `query string`.
     * For `POST`, `PUT`, and `DELETE` endpoints, the parameters may be sent as a `query string` or in the `request body` with content type  `application/x-www-form-urlencoded`. You may mix parameters between both the  `query string` and `request body` if you wish to do so.
     * Parameters may be sent in any order.
     * If a parameter sent in both the `query string` and `request body`, the `query string` parameter will be used.
 
-# Public API Endpoints
-!!! tip ""
+## Public API Endpoints
+
     ### Terminology
 
     These terms will be used throughout the documentation, so it is recommended especially for new users to read to help their understanding of the API.
@@ -145,57 +127,51 @@
 
 
 
-## Kline/Candlestick chart intervals
+### Kline/Candlestick chart intervals
+
+| **VALUE** | **DESCRIPTION** |
+| --- | --- |
+|  m| minutes|
+|  h| hours|
+|  d| minutes|
+|  w| days|
+|  M| months|
 
 
-!!! note annotate "The meaning of k-line units"
+### Order Status
 
-	m -> minutes;
-	h -> hours;
-	d -> days;
-	w -> weeks;
-	M -> months;
+| **VALUE** | **DESCRIPTION** |
+| --- | --- |
+|  OPEN| The order has been accepted by the engine.|
+|  FINISHED| The order has been completed.|
 
+### Order Types
 
-!!! example "ENUM Definitions"
+| **VALUE** | **DESCRIPTION** |
+| --- | --- |
+|  LIMIT| |
+|  MARKET| |
 
-    === "Order Status"
-
-        ``` markdown
-        1. `OPEN` | The order has been accepted by the engine.
-        2. `FINISHED` | The order has been completed.
-        ```
-
-	=== "Order Types"
-
-        ``` markdown
-        1. LIMIT
-        2. MARKET
-        ```
-
-	=== "Order Side"
-
-        ``` markdown
-        1. BUY
-        2. SELL
-        ```
-
-	=== "Kline Types"
-
-        ``` markdown
-        *. 1m
-        *. 3m
-        *. 5m
-        *. 15m
-        *. 30m
-        *. 1h
-        *. 2h
-        *. 4h
-        *. 6h
-        *. 8h
-        *. 12h
-        *. 1d
-        *. 3d
-        *. 1w
-        *. 1M
-        ```
+### Order Side
+| **VALUE** | **DESCRIPTION** |
+| --- | --- |
+|  BUY| |
+|  SELL| |
+ ### Kline Types
+| **VALUE** | **DESCRIPTION** |
+| --- | --- |
+|  1m| |
+|  3m| |
+|  5m| |
+|  15m| |
+|  30m| |
+|  1h| |
+|  2h| |
+|  4h| |
+|  6h| |
+|  8h| |
+|  12h| |
+|  1d| |
+|  3d| |
+|  1w| |
+|  1M| |

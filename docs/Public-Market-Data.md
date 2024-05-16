@@ -274,4 +274,4 @@ GET `/api/v1/spot/ticker/price`
 			}]
 		}
 
-		```
+```
