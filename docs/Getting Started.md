@@ -131,47 +131,45 @@
 
 | **VALUE** | **DESCRIPTION** |
 | --- | --- |
-|  m| minutes|
-|  h| hours|
-|  d| minutes|
-|  w| days|
-|  M| months|
+|  M1| every minute|
+|  M3| every 3 minutes|
+|  M5| every 5 minutes|
+|  M15| every 15 minutes|
+|  M30| every 30 minutes|
+|  H1| every 1 hour|
+|  H2| every 2 hours|
+|  H4| every 4 hours|
+|  H6| every 6 hours|
+|  H8| every 8 hours|
+|  H12| every 12 hours|
+|  D1| every 1 day|
+|  W1| every 1 week|
+|  MON1| every 1 month|
 
 
 ### Order Status
 
 | **VALUE** | **DESCRIPTION** |
 | --- | --- |
-|  OPEN| The order has been accepted by the engine.|
-|  FINISHED| The order has been completed.|
+|  PENDING_NEW| To be created (this status exists when the planned commission is to be triggered).|
+|  NEW| Create a new order (untransacted).|
+|  PARTIAL_FILLED| Partially executed (order not fully executed).|
+|  FILLED| Completed (order fully completed).|
+|  CANCELED| Cancel (to be created, new orders, and partial transactions can be canceled)d.|
+|  REJECT| Rejecting an order (an order request that fails pre-verification before placing an order).|
 
 ### Order Types
 
 | **VALUE** | **DESCRIPTION** |
 | --- | --- |
-|  LIMIT| |
-|  MARKET| |
+|  LIMIT| limit order|
+|  MARKET| market order|
+|  STOP_LIMIT| plan commission limit order|
+|  STOP_MARKET| plan commission market order|
+
 
 ### Order Side
 | **VALUE** | **DESCRIPTION** |
 | --- | --- |
 |  BUY| |
 |  SELL| |
- ### Kline Types
-| **VALUE** | **DESCRIPTION** |
-| --- | --- |
-|  1m| |
-|  3m| |
-|  5m| |
-|  15m| |
-|  30m| |
-|  1h| |
-|  2h| |
-|  4h| |
-|  6h| |
-|  8h| |
-|  12h| |
-|  1d| |
-|  3d| |
-|  1w| |
-|  1M| |

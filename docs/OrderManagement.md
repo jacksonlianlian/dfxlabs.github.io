@@ -13,11 +13,14 @@ Order Management
 | --- | --- | --- | --- |
 | symbol | STRING | YES | Trading pair |
 | accountId | STRING | YES | user's accountId |
-| side | STRING | YES | order direction. eg: `bug` or `sell` |
+| side | STRING | YES | order direction. eg: `BUY` or `SELL` |
 | type | STRING | YES | orderType eg:`LIMIT`. `MARKET`.`STOP_LIMIT`.`STOP_MARKET` |
 | price | BIGDECIMAL | NO | Order Price |
 | quantity | BIGDECIMAL | NO | Order Quantity |
 | amount | BIGDECIMAL | NO | Order Amount |
+| clientOrderId | STRING | NO | Order id pass by api user |
+
+
 
 
 ``` java
@@ -37,7 +40,8 @@ Order Management
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
 | accountId | STRING | YES | user's accountId |
-| orderId    | LONG    | YES | Order Id|
+| orderId    | LONG    | NO | Order Id|
+| clientOrderId | STRING | NO | Order id pass by api user |
 
 
 
@@ -89,6 +93,7 @@ DELETE `/api/v1/spot/batch/order`
 | --- | --- | --- | --- |
 | accountId | STRING | YES | user's accountId |
 | orderId    | LONG    | YES | Order Id|
+| clientOrderId | STRING | NO | Order id pass by api user |
 
 
 ``` java
@@ -142,7 +147,7 @@ DELETE `/api/v1/spot/batch/order`
 | symbol | STRING | NO | Trading pair |
 | orderId | LONG | NO | order's id|
 | fromId | LONG | NO | The order list is queried in reverse order. If you query the data of order number 10-1, and the parameters fromId=10, limit=5, the data of the order number in [10-5) will be queried.|
-| limit | INT | NO | Number of items in a single query|
+| limit | INTEGER | NO | The number of items returned by each query, default 10 |
 | startTime    | LONG    | NO | StartTime in milliseconds ,eg:1678772870000
 | endTime    | LONG    | NO | endTime in milliseconds ,eg:1678772870000
 
@@ -204,7 +209,7 @@ DELETE `/api/v1/spot/batch/order`
 | accountId | STRING | YES | user's accountId |
 | symbol | STRING | NO | Trading pair |
 | orderId | LONG | NO | order's id|
-| limit | INT | NO | Number of items in a single query|
+| limit | INTEGER | NO | The number of items returned by each query, default 10 |
 
 
 

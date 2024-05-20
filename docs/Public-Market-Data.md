@@ -5,7 +5,8 @@
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
-| symbol | STRING | YES | Trading pair |
+| symbol | STRING | YES | Trading pair , eg: `BTC-USDT` |
+| limit | INTEGER | NO | The number of items returned by each query, default 10 |
 
 
 
@@ -52,8 +53,8 @@
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
-| symbol | STRING | YES | Trading pair |
-| limit             | INT    | YES | record limit,eg:30
+| symbol | STRING | YES | Trading pair , eg: `BTC-USDT` |
+| limit | INTEGER | NO | The number of items returned by each query, default 10 |
 
 
 
@@ -85,8 +86,8 @@
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
-| symbol | STRING | YES | Trading pair |
-| limit  | INT | NO | record limit,eg:30
+| symbol | STRING | YES | Trading pair , eg: `BTC-USDT` |
+| limit | INTEGER | NO | The number of items returned by each query, default 10 |
 | interval | STRING    | YES | kline type,eg:`M1, M3, M5, M15, M30, H1, H2, H4, H6, H8, H12, D1, W1, MON1`
 | startTime    | LONG    | NO | StartTime in milliseconds ,eg:1678772870000
 | endTime    | LONG    | NO | endTime in milliseconds ,eg:1678772870000
@@ -121,7 +122,7 @@
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
-| symbol | STRING | YES | Trading pair |
+| symbol | STRING | YES | Trading pair , eg: `BTC-USDT` |
 
 
 
@@ -153,7 +154,7 @@ GET `/api/v1/spot/ticker/price`
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
-| symbol | STRING | YES | Trading pair |
+| symbol | STRING | YES | Trading pair , eg: `BTC-USDT` |
 
 
 
@@ -175,7 +176,7 @@ GET `/api/v1/spot/ticker/price`
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
-| symbol | STRING | YES | Trading pair |
+| symbol | STRING | YES | Trading pair, eg: `BTC-USDT` |
 
 
 

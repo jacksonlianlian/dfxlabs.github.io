@@ -105,7 +105,14 @@ User Api
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
-|   No Parameters|
+| symbol | STRING | YES | Trading pair,eg:`BTC-USDT` |
+| accountId | STRING | NO | account's ID |
+| orderId | LONG | NO | order's ID |
+| fromId | LONG | NO | Starting tradeId |
+| startTime | LONG | NO | Start timestamp of conditional query |
+| endTime | LONG | NO | End timestamp of conditional query |
+| limit | INTEGER | NO | The number of items returned by each query, default 10 |
+
 
 
 
