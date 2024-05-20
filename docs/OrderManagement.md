@@ -9,19 +9,43 @@ Order Management
 
 
 
+``
+
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
 | symbol | STRING | YES | Trading pair |
 | accountId | STRING | YES | user's accountId |
 | side | STRING | YES | order direction. eg: `BUY` or `SELL` |
-| type | STRING | YES | orderType eg:`LIMIT`. `MARKET`.`STOP_LIMIT`.`STOP_MARKET` |
+| type | STRING | YES | orderType eg:`LIMIT`. `MARKET`. |
 | price | BIGDECIMAL | NO | Order Price |
 | quantity | BIGDECIMAL | NO | Order Quantity |
 | amount | BIGDECIMAL | NO | Order Amount |
 | clientOrderId | STRING | NO | Order id pass by api user |
 
 
+**The following example will demonstrate how to create a limit order**
+``` java
+{
+	"symbol": "BTC-USDT",
+	"accountId": "1403134775",
+	"side": "BUY"
+	"type": "LIMIT",
+	"price": 66666.88,
+	"quantity": 0.01
+}
 
+```
+**And the following example will demonstrate how to create a market order**
+``` java
+{
+	"symbol": "BTC-USDT",
+	"accountId": "1403134775",
+	"side": "BUY"
+	"type": "MARKET",
+	"amount": 100.00
+}
+
+```
 
 ``` java
 {
@@ -65,6 +89,8 @@ DELETE `/api/v1/spot/batch/order`
 | symbol    | STRING    | NO | symbol|
 | orderIds    | STRING    | NO | Multiple order numbers, separated by commas. eg:2000000074758463,2000000074758464|
 
+
+**Supports canceling all user orders based on symbol or canceling specified orders based on the orderId specified by the user. If both parameters are used, the order will be canceled based on orderIds first.**
 
 
 ``` java

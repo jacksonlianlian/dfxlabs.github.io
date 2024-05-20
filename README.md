@@ -29,3 +29,5 @@
 6. [Public-Market-Data](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Public-Market-Data.md)
 
 7. [UserInfo](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/UserInfo.md)
+
+8. [Websocket](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Websocket.md)
