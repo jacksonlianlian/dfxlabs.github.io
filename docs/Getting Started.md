@@ -34,8 +34,6 @@
 
 ###  Access Restrictions
 
-    * The `rateLimits` array within **GET** `/api/v1/exchangeInfo` contains objects related to the`REQUEST_WEIGHT` of the transactions and `ORDERS` rate limits for trading. These are further defined in the enumeration defintion section under the limit types `rateLimitType`
-
     * If any rate limit is violated, a `429` error code will be returned
 
     * Each API endpoint has an associated with a specific weight, and certain endpoints may possess varying weights based on different parameters. Endpoints that consume more resources will have a higher weight assigned to them.
