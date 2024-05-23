@@ -162,8 +162,6 @@
 | --- | --- |
 |  LIMIT| limit order|
 |  MARKET| market order|
-|  STOP_LIMIT| plan commission limit order|
-|  STOP_MARKET| plan commission market order|
 
 
 ### Order Side

@@ -9,7 +9,6 @@ Order Management
 
 
 
-``
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
@@ -47,6 +46,8 @@ Order Management
 
 ```
 
+**If the order is created successfully, the server will return the following example**
+
 ``` java
 {
 	"code": "0",
@@ -58,7 +59,7 @@ Order Management
 
 
 
-# 2、 Cancel Order.
+# 2、 Cancel a single order.
 ## DELETE `/api/v1/spot/order`
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
