@@ -2,7 +2,7 @@
 
 ## About API Key
 ### API Key Notice
-* Access to OpenAPI-related interfaces requires an API Key. Please visit this page to set up your API Key.
+* Access to OpenAPI-related interfaces requires an API Key. Please visit [this page](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md) to set up your API Key.
 * When configuring the API Key, for security purposes, ensure that your IP address is added to the access whitelist, which supports up to 30 IPs.
 * Do not share your API key with anyone. In case of accidental exposure, promptly delete the key and generate a new one.
 
