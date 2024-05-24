@@ -109,11 +109,11 @@ Subscribe Websocket
 # Quick Socket connect
 
 ## How to connect？
-`Please use ws://${host}/ws/market?format=JSON to connect,When there is no heartbeat, the connection can be maintained for up to 180s.This subscription connection can access most public topics, but if you need to access private topics, then you need to add your EXXCHANGE-API-KEY in the header. For specific operations, please refer to [`OpenAPi`](https://github.com /dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md), please note that this is the only credential that you have access to.`
+`Please use ws://dfx.hk/ws/market?format=JSON to connect,When there is no heartbeat, the connection can be maintained for up to 180s.This subscription connection can access most public topics, but if you need to access private topics, then you need to add your EXXCHANGE-API-KEY in the header. For specific operations, please refer to [`OpenAPi`](https://github.com /dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md), please note that this is the only credential that you have access to.`
 
 | **FIELD** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
-| format |  | STRING | NO, default `PROTOBUF` | message type.eg:`PROTOBUF` The data is binary and will be compressed. `JSON` Readable json string |
+| format | STRING | NO, default `PROTOBUF` | message type.eg:`PROTOBUF` The data is binary and will be compressed. `JSON` Readable json string |
 
 If the following is returned, the connection is successfully established.
 
@@ -198,7 +198,7 @@ Then, the server returns the following message
 
 ## How to unSubscribe Topic？
 
-`If you need to unSubscribe a topic.*If you want to cancel all the user's subscriptions at once, the topic and subjects are not passed.*`
+`If you need to unSubscribe from a topic. If you want to cancel all the user's subscriptions at once, neither the topic nor the subjects need to be passed.`
 ``` java
   {
   	"id": "e6b46d0e-cda3-48e4-9cc9-abb5e27e71bf",    //前端自定义一个uuid，用于接收识别响应结果

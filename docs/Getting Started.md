@@ -4,8 +4,8 @@
 ## Production Environment
 
    ``` java
-        * Restful URL: [https://api.dfx-inc.com]
-        * WebSocket: [wss://api.dfx-inc.com]
+        * Restful URL: [https://api.dfx.hk]
+        * WebSocket: [wss://api.dfx.hk]
   ```
 
 
@@ -76,7 +76,7 @@
 
     * **READ** read permission is used for data query interfaces such as order query, transaction query, etc.
     *   **TRADE** read-write permission is used for order placing, order cancelling, including transfer permission whereby user can transfer between subaccounts under the same main trading account
-    * Users can set IP whitelist for API-KEY. If user set IP for the API-KEY, only the IPs in the whitelist can call the API. Each API-KEY will be bound to a maximum of 10 IPs. If the user has multiple API-KEYs, they have to set IP whitelist for each API-KEY respectively.
+    * Users can set IP whitelist for API-KEY. If user set IP for the API-KEY, only the IPs in the whitelist can call the API. Each API-KEY will be bound to a maximum of 30 IPs. If the user has multiple API-KEYs, they have to set IP whitelist for each API-KEY respectively.
 
     * Both private REST and WebSocket modes require users to authenticate the transaction through the API-KEY passed in the API header. Refer to the following Authentication chapter for the signature algorithm of the API-KEY.
 
@@ -149,12 +149,12 @@
 
 | **VALUE** | **DESCRIPTION** |
 | --- | --- |
-|  PENDING_NEW| To be created (this status exists when the planned commission is to be triggered).|
-|  NEW| Create a new order (untransacted).|
-|  PARTIAL_FILLED| Partially executed (order not fully executed).|
-|  FILLED| Completed (order fully completed).|
-|  CANCELED| Cancel (to be created, new orders, and partial transactions can be canceled)d.|
-|  REJECT| Rejecting an order (an order request that fails pre-verification before placing an order).|
+|  PENDING_NEW| Conditional order waiting to be triggered.|
+|  NEW| New order, pending to be filled.|
+|  PARTIAL_FILLED| Partially filled.|
+|  FILLED| Completed filled.|
+|  CANCELED| Order cancelled.|
+|  REJECT| Order refers to the rejection of an order during the order creating or matching process.|
 
 ### Order Types
 
@@ -167,5 +167,5 @@
 ### Order Side
 | **VALUE** | **DESCRIPTION** |
 | --- | --- |
-|  BUY| |
-|  SELL| |
+|  BUY| Buy order|
+|  SELL| Sell order|
