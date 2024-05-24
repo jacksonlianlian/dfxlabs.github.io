@@ -1,9 +1,2 @@
 title: DFX Labs
 favicon: /favicon.ico
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "default"
-      favicon: "/favicon.ico"
