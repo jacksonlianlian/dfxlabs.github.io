@@ -7,7 +7,7 @@
 * Do not share your API key with anyone. In case of accidental exposure, promptly delete the key and generate a new one.
 
 ###  API Key permission setting instructions
-*   - The newly generated API Key can be assigned a permission type. Currently, there are three roles available: Administrator, Trader, and Observer. Each role has access to different interfaces. For detailed information, [please refer Here.](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md)
+* The newly generated API Key can be assigned a permission type. Currently, there are three roles available: Administrator, Trader, and Observer. Each role has access to different interfaces. For detailed information, [please refer Here.](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md)
 
 ## Contact us
 * DFX Labs official email: cs@dfxlabs.com
@@ -15,11 +15,11 @@
 
 ## Basic Information
 
-1. [Getting Started](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Getting%20Started.md)
+1. [Authentication](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Authentication.md)
 
 2. [Error Codes](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/ErrorCodes.md)
 
-3. [Authentication](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Authentication.md)
+3. [Getting Started](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Getting%20Started.md)
 
 4. [Open Api](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md)
 
