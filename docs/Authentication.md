@@ -5,12 +5,12 @@
 
 	Each created API-KEY need to be assigned with appropriate permissions in order to access the corresponding interface. Before using the interface, users is required to check the permission type for each interface and confirm there is appropriate permissions.
 
-	| Authentication Type | Description |
-	| --- | --- |
-	| MARKET_DATA | Endpoints are freely accessible |
-	| TRADE | Endpoints requires sending a valid EXCHANGE-API-KEY and signature |
-	| USER_DATA | Endpoints requires sending a valid EXCHANGE-API-KEY and signature |
-	| USER_STREAM | The endpoints requires sending a valid EXCHANGE-API-KEY |
+| Authentication Type | Description |
+| --- | --- |
+| MARKET_DATA | Endpoints are freely accessible |
+| TRADE | Endpoints requires sending a valid EXCHANGE-API-KEY and signature |
+| USER_DATA | Endpoints requires sending a valid EXCHANGE-API-KEY and signature |
+| USER_STREAM | The endpoints requires sending a valid EXCHANGE-API-KEY |
 
 
 
@@ -18,38 +18,38 @@
 --------------------------------------------------------------------
     If you are going to access the **TRADE & USER_DATA** related api interface, you need to add the **EXCHANGE-API-SIGN** field in the header, and it needs to have a legal and correct value;
 
-	| Column | Description |
-	| --- | --- |
-	| EXCHANGE-API-KEY | Apply on the User Center-API page |
-	| EXCHANGE-API-TIMESTAMP | The timestamp at which the request was initiated |
-	| EXCHANGE-API-SIGN | Encrypted and signed string for parameters |
+| Column | Description |
+| --- | --- |
+| EXCHANGE-API-KEY | Apply on the User Center-API page |
+| EXCHANGE-API-TIMESTAMP | The timestamp at which the request was initiated |
+| EXCHANGE-API-SIGN | Encrypted and signed string for parameters |
 
 	if you are going to access the **MARKET_DATA** related api interface , the **EXCHANGE-API-KEY**、**EXCHANGE-API-SIGN** field is not required, but the **EXCHANGE-API-TIMESTAMP** field is required.
 
 ## Signature (TRADE & USER_DATA)
 
 
-	* The SIGNED (signature required) endpoint needs to send a parameter, signature, in the **query string** or **request body**.
+* The SIGNED (signature required) endpoint needs to send a parameter, signature, in the **query string** or **request body**.
 
-	* The endpoint is signed with ED25519. Signature is the result of **ED25519** encryption of the param. Use your Private-Key as the key and totalParams as the value to complete this encryption process.
+* The endpoint is signed with ED25519. Signature is the result of **ED25519** encryption of the param. Use your Private-Key as the key and totalParams as the value to complete this encryption process.
 
-	* Signature is not case sensitive.
+* Signature is not case sensitive.
 
-	* totalParams refers to concatenation of the query string and the request body.
+* totalParams refers to concatenation of the query string and the request body.
 
-	All HTTP requests to API endpoints require authentication and authorization. The following headers should be added to all HTTP requests:
+All HTTP requests to API endpoints require authentication and authorization. The following headers should be added to all HTTP requests:
 
-	| Key | Value | Type | Description |
-	| --- | --- | --- | --- |
-	| EXCHANGE-API-KEY | API-KEY | String | The API Key you applied for，Except for the ***MARKET_DATA*** endpoint, all other api endpoints need to pass this field |
-	| EXCHANGE-API-SIGN | PARAM SING | String | The Sign for Authentication purposes, user and transaction related endpoints must pass this field|
-	| EXCHANGE-API-TIMESTAMP | TIMESTAMP  | Long | milliseconds, such as 1706772548231, Used to indicate the time when the request was initiated |
+| Key | Value | Type | Description |
+| --- | --- | --- | --- |
+| EXCHANGE-API-KEY | API-KEY | String | The API Key you applied for，Except for the ***MARKET_DATA*** endpoint, all other api endpoints need to pass this field |
+| EXCHANGE-API-SIGN | PARAM SING | String | The Sign for Authentication purposes, user and transaction related endpoints must pass this field|
+| EXCHANGE-API-TIMESTAMP | TIMESTAMP  | Long | milliseconds, such as 1706772548231, Used to indicate the time when the request was initiated |
 
 #### Time-base security requirement
     If your timestamp is ahead of serverTime it needs to be within 1 Mins
 
-	*   For a SIGNED endpoint, an additional parameter "timestamp" needs to be included in the request. This timestamp is in **milliseconds** and reflect the time when the request was intitated
-	*   The timestamp is based on the server's time and cannot exceed 1 Mins before or after.
+*   For a SIGNED endpoint, an additional parameter "timestamp" needs to be included in the request. This timestamp is in **milliseconds** and reflect the time when the request was intitated
+*   The timestamp is based on the server's time and cannot exceed 1 Mins before or after.
 
 
 	The logic of this parameter is as follows:
@@ -75,15 +75,15 @@
 
 #### tip
 
-	The following fields need to be filled in when signing, and then sorted in ascending order according to the parameter name. The finally sorted string will be encrypted.
+The following fields need to be filled in when signing, and then sorted in ascending order according to the parameter name. The finally sorted string will be encrypted.
 
-	| Parameter| Description |
-	| --- | --- |
-	| body| The query param in request body |
-	| method| request type，eg:POST、GET、DELETE |
-	| param| The query param in request param|
-	| path | This path is the real path requested by the interface caller. like /api/v1/symbols |
-	| timestamp| timestamp in milliseconds |
+| Parameter| Description |
+| --- | --- |
+| body| The query param in request body |
+| method| request type，eg:POST、GET、DELETE |
+| param| The query param in request param|
+| path | This path is the real path requested by the interface caller. like /api/v1/symbols |
+| timestamp| timestamp in milliseconds |
 
 
 #### warn
