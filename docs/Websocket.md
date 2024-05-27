@@ -109,7 +109,7 @@ Subscribe Websocket
 # Quick Socket connect
 
 ## How to connect？
-`Please use ws://dfx.hk/ws/market?format=JSON to connect,When there is no heartbeat, the connection can be maintained for up to 180s.This subscription connection can access most public topics, but if you need to access private topics, then you need to add your EXXCHANGE-API-KEY in the header. For specific operations, please refer to [`OpenAPi`](https://github.com /dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md), please note that this is the only credential that you have access to.`
+`Please use ws://dfx.hk/ws/market?format=JSON to connect,When there is no heartbeat, the connection can be maintained for up to 180s.This subscription connection can access most public topics, but if you need to access private topics, then you need to add your EXXCHANGE-API-KEY in the header. For specific operations, please refer to [OpenAPi](https://github.com /dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md), please note that this is the only credential that you have access to.`
 
 | **FIELD** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
@@ -198,7 +198,7 @@ Then, the server returns the following message
 
 ## How to unSubscribe Topic？
 
-`If you need to unSubscribe from a topic. If you want to cancel all the user's subscriptions at once, neither the topic nor the subjects need to be passed.`
+`If you need to unsubscribe from a specific topic, you must provide both the topic and the subject. If you want to unsubscribe all users at once, neither the topic nor the subject needs to be provided.`
 ``` java
   {
   	"id": "e6b46d0e-cda3-48e4-9cc9-abb5e27e71bf",    //前端自定义一个uuid，用于接收识别响应结果

@@ -21,14 +21,12 @@
 
 * `HTTP 5XX` indicates an internal system error. This signifies that the issue originates within the trading system. When addressing this error, it's important not to immediately categorise it as a failed task. The execution status is uncertain, it could potentially be either successful or unsuccessful.
 
-* For **GET** endpoints, parameters must be sent as query strings.
-
 * Request Parameters can be sent in any order.
 
 ## General Information on Endpoints
 
 * For `GET` endpoints, parameters must be sent as a `query string`.
-* For `POST`, `PUT`, and `DELETE` endpoints, the parameters may be sent as a `query string` or in the `request body` with content type  `application/x-www-form-urlencoded`. You may mix parameters between both the  `query string` and `request body` if you wish to do so.
+* For `POST`, `PUT`, and `DELETE` endpoints, the parameters may be sent as a `query string` or in the `request body` with content type  `application/json`. You may mix parameters between both the  `query string` and `request body` if you wish to do so.
 * Parameters may be sent in any order.
 * If a parameter sent in both the `query string` and `request body`, the`query string` parameter will be used.
 
@@ -36,33 +34,10 @@
 
 * If any rate limit is violated, a `429` error code will be returned
 
-* Each API endpoint has an associated with a specific weight, and certain endpoints may possess varying weights based on different parameters. Endpoints that consume more resources will have a higher weight assigned to them.
-
 * Upon receiving `429` error code, please take precautionary steps to cease sending requests. API abuse is strictly prohibited
 
 * It is recommended to use Websocket API to obtain corresponding real-time data as much as possible to reduce the traffic of access restrictions caused by frequent API requests.
 
-
-###  Order Rate Limiting
-
-
-
-* Unless specified, each API Key has a rate limit of 100 requests per minute for query related and order related endpoints have 20 requests per 2 seconds
-
-* When the number of orders exceeds the set limit, a response with an HTTP CODE 429 will be received. Please refer to the order rate limits (rateLimitType = ORDERS) in GET `/api/v1/exchangeInfo`, and wait for the suspended period to expire.
-
-* Order rate limits are based on each EXCHANGE-API-KEY and will not be associated with other API keys created within the same account.
-
-
-###  Endpoint Security Types
-
-* Each endpoint is assigned a security type that determines how you interact with it.
-
-* The API-KEY must be passed in the REST API header as **EXCHANGE-API-KEY**.
-
-* EXCHANGE-API-KEY and EXCHANGE-API-SIGN are case-sensitive.
-
-* By default, API-KEY have access to all secure endpoints.
 
 
 ###  API-KEY Management
@@ -72,11 +47,11 @@
 
 * **EXCHANGE-API-KEY**: API access key
 * **Public Key**: The key used for signature authentication encryption, Uploaded by users themselves (visible to the application only)
-* Users have to assign permissions to API-KEY. There are two kinds of permissions,
+* Users have to assign permissions to API-KEY. There are two kinds of permissions:
 
-* **READ** read permission is used for data query interfaces such as order query, transaction query, etc.
-*   **TRADE** read-write permission is used for order placing, order cancelling, including transfer permission whereby user can transfer between subaccounts under the same main trading account
-* Users can set IP whitelist for API-KEY. If user set IP for the API-KEY, only the IPs in the whitelist can call the API. Each API-KEY will be bound to a maximum of 30 IPs. If the user has multiple API-KEYs, they have to set IP whitelist for each API-KEY respectively.
+  * **READ** read permission is used for data query interfaces such as order query, transaction query, etc.
+  * **TRADE** read-write permission is used for order placing, order cancelling, including transfer permission whereby user can transfer between subaccounts under the same main trading account
+* The user must set an IP whitelist for the API-KEY. Only IPs in the whitelist can call the API. Each API-KEY can bind up to 30 IPs. If the user has multiple API-KEYs, they must set an IP whitelist for each API-KEY individually.
 
 * Both private REST and WebSocket modes require users to authenticate the transaction through the API-KEY passed in the API header. Refer to the following Authentication chapter for the signature algorithm of the API-KEY.
 

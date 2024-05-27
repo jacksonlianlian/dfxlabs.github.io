@@ -1,7 +1,11 @@
 # Authentication
 
 ## Endpoint Security Type
-	API requests are likely to be tampered during transmission through the internet. To ensure that the request remains unchanged, all private interfaces other than public interfaces (basic information, market data) must be verified by signature authentication via EXCHANGE-API-KEY to make sure the parameters or configurations are unchanged during transmission.
+	API requests are likely to be tampered during transmission through the internet.
+	To ensure that the request remains unchanged, all private interfaces other than
+	public interfaces (basic information, market data) must be verified by signature
+	authentication via EXCHANGE-API-KEY to make sure the parameters or configurations
+	are unchanged during transmission.
 
 	Each created API-KEY need to be assigned with appropriate permissions in order to access the corresponding interface. Before using the interface, users is required to check the permission type for each interface and confirm there is appropriate permissions.
 
@@ -45,29 +49,6 @@ All HTTP requests to API endpoints require authentication and authorization. The
 | EXCHANGE-API-SIGN | PARAM SING | String | The Sign for Authentication purposes, user and transaction related endpoints must pass this field|
 | EXCHANGE-API-TIMESTAMP | TIMESTAMP  | Long | milliseconds, such as 1706772548231, Used to indicate the time when the request was initiated |
 
-#### Time-base security requirement
-    If your timestamp is ahead of serverTime it needs to be within 1 Mins
-
-*   For a SIGNED endpoint, an additional parameter "timestamp" needs to be included in the request. This timestamp is in **milliseconds** and reflect the time when the request was intitated
-*   The timestamp is based on the server's time and cannot exceed 1 Mins before or after.
-
-
-	The logic of this parameter is as follows:
-
-``` java
- if (timestamp.between(serverTime - 60000, serverTime + 60000))) {
-	 // process request
- } else {
-	 // reject request
- }
-
-```
-
-	*   Trading and timeliness are closely interconnected. Network can sometimes be unstable or unreliable, which can lead to inconsistent times when requests are sent to the server.
-~~With **recvWindow**, you can specify how many milliseconds the request is valid, otherwise it will be rejected by the server.~~
-
-
-~~A relatively small recvWindow (5000 or less) is recommended!~~
 
 
 ### How to sign request parameters
@@ -87,7 +68,7 @@ The following fields need to be filled in when signing, and then sorted in ascen
 
 
 #### warn
-    1. The above parameters need to be spliced in ascending order of parameter names A_Z and connected with the symbol "&". Signature verification will fail if the order is wrong or if the parameter names are wrong.
+    1. The above parameter fields need to be sorted in ascending order and be concatenated with a separator character: “&”. Signature verification will fail if the order is wrong or if the parameter names are wrong.
     2. **You only need to sort `body`, `method`, `param`, `path`, `timestamp`, and there is no need to sort the values inside parm and body. For example, param=BAC does not need to be sorted into param=ABC! The same goes for the body field**
 
 ###  Example 1: param in queryString

@@ -111,7 +111,7 @@ User Api
 | fromId | LONG | NO | Starting tradeId |
 | startTime | LONG | NO | Start timestamp of conditional query |
 | endTime | LONG | NO | End timestamp of conditional query |
-| limit | INTEGER | NO | The number of items returned by each query, default 10 |
+| limit | INTEGER | NO | The number of items returned per query is 10 by default, with a maximum limit of 100 items. |
 
 
 

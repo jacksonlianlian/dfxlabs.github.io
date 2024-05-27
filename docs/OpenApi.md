@@ -6,6 +6,8 @@ OpenApi Key
 
 Public key is your local public key generated using the ed25519 algorithm. The private key is kept by you. DFX will never ask you for the private key at any time. Api key is the identity assigned to you after you upload the public key to dfx.
 
+You can create an API-KEY for your own account, or you can create a unique API-KEY for each sub-user. If you need to replace an API-KEY, you must first delete the old one before creating a new one.
+
 **1. How do you generate public and private keys?**
 
 To generate an Ed25519 key pair in the command line and convert the private key to a Base64 encoded string, you can use the OpenSSL tool.

@@ -20,14 +20,14 @@ ErrorCodes
 
 ``` java
 {
-		"code": "401",
+	"code": "401",
 	"msg": "public-key has not been uploaded or has expired"
 }
 ```
 
 ``` java
 {
-		"code": "403",
+	"code": "403",
 	"msg": "Insufficient permissions or IP is not in the whitelist"
 }
 ```
@@ -35,7 +35,7 @@ ErrorCodes
 
 ``` java
 {
-		"code": "412",
+	"code": "412",
 	"msg": "The request header is missing `EXCHANGE-API-SIGN` parameters"
 }
 ```

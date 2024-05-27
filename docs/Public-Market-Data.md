@@ -92,7 +92,7 @@
 | startTime    | LONG    | NO | StartTime in milliseconds ,eg:1678772870000
 | endTime    | LONG    | NO | endTime in milliseconds ,eg:1678772870000
 
-
+**If startTime and endTime are not provided, the server's default time will be used. For example, if querying minute-based K-line data with limit=10, the data for the last ten minutes will be retrieved. If querying daily K-line data with limit=20, the data for the last twenty days will be retrieved.**
 
 ``` java
 		{

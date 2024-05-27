@@ -92,6 +92,7 @@ DELETE `/api/v1/spot/batch/order`
 
 
 **Supports canceling orders in batches, either based on the symbol or specific order IDs specified by the user. Batch cancellation currently supports canceling up to 5 orders at once. If both parameters are used, the order will be canceled based on orderIds first.**
+**If orders are canceled based on orderIds, a maximum of 5 orders can be submitted at a time. This process is independent of the order creation time, as the system always cancels based on the orderId. However, if orders are canceled based on symbol or accountId, they are canceled in the order of their creation time, with the earliest created orders having the highest priority.**
 
 
 ``` java
@@ -174,7 +175,7 @@ DELETE `/api/v1/spot/batch/order`
 | symbol | STRING | NO | Trading pair |
 | orderId | LONG | NO | order's id|
 | fromId | LONG | NO | The order list is queried in reverse order. If you query the data of order number 10-1, and the parameters fromId=10, limit=5, the data of the order number in [10-5) will be queried.|
-| limit | INTEGER | NO | The number of items returned by each query, default 10 |
+| limit | INTEGER | NO | The number of items returned per query is 10 by default, with a maximum limit of 500 items.|
 | startTime    | LONG    | NO | StartTime in milliseconds ,eg:1678772870000
 | endTime    | LONG    | NO | endTime in milliseconds ,eg:1678772870000
 
@@ -236,7 +237,7 @@ DELETE `/api/v1/spot/batch/order`
 | accountId | STRING | YES | user's accountId |
 | symbol | STRING | NO | Trading pair |
 | orderId | LONG | NO | order's id|
-| limit | INTEGER | NO | The number of items returned by each query, default 10 |
+| limit | INTEGER | NO | The number of items returned per query is 10 by default, with a maximum limit of 100 items. |
 
 
 
