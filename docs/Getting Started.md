@@ -85,7 +85,7 @@
 
 
 ## General API Information
-* The base endpoint is: **https://xxx.com**
+* The base endpoint is: **https://api.dfx.hk**
 * All endpoints return either a JSON object or array.
 
     Sample Payload below:
