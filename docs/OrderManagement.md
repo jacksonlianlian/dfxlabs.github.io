@@ -91,8 +91,8 @@ DELETE `/api/v1/spot/batch/order`
 | orderIds    | STRING    | NO | Multiple order numbers, separated by commas. eg:2000000074758463,2000000074758464|
 
 
-**Supports canceling orders in batches, either based on the symbol or specific order IDs specified by the user. Batch cancellation currently supports canceling up to 5 orders at once. If both parameters are used, the order will be canceled based on orderIds first.**
-**If orders are canceled based on orderIds, a maximum of 5 orders can be submitted at a time. This process is independent of the order creation time, as the system always cancels based on the orderId. However, if orders are canceled based on symbol or accountId, they are canceled in the order of their creation time, with the earliest created orders having the highest priority.**
+**Supports cancelling orders in batches, either based on symbol or specific order IDs specified by the user. If a symbol is specified, all orders for that symbol will be canceled. If order IDs are specified, up to 5 orders can be canceled at once.
+At least one of the two parameters, symbol or order ID, must be specified. If both parameters are specified, orders will be canceled based on the order ID first.**
 
 
 ``` java

@@ -87,7 +87,7 @@
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
 | symbol | STRING | YES | Trading pair , eg: `BTC-USDT` |
-| limit | INTEGER | NO | The number of items returned by each query, default 10 |
+| limit | INTEGER | NO | The number of items returned per query is 10 by default, with a maximum limit of 500 items. |
 | interval | STRING    | YES | kline type,eg:`M1, M3, M5, M15, M30, H1, H2, H4, H6, H8, H12, D1, W1, MON1`
 | startTime    | LONG    | NO | StartTime in milliseconds ,eg:1678772870000
 | endTime    | LONG    | NO | endTime in milliseconds ,eg:1678772870000

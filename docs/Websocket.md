@@ -198,7 +198,7 @@ Then, the server returns the following message
 
 ## How to unSubscribe Topic？
 
-`If you need to unsubscribe from a specific topic, you must provide both the topic and the subject. If you want to unsubscribe all users at once, neither the topic nor the subject needs to be provided.`
+`If you need to unsubscribe from a topic, you need to specify the topic. If you want to unsubscribe all users at once, neither the topic nor the subject needs to be provided.`
 ``` java
   {
   	"id": "e6b46d0e-cda3-48e4-9cc9-abb5e27e71bf",    //前端自定义一个uuid，用于接收识别响应结果

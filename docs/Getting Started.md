@@ -23,13 +23,6 @@
 
 * Request Parameters can be sent in any order.
 
-## General Information on Endpoints
-
-* For `GET` endpoints, parameters must be sent as a `query string`.
-* For `POST`, `PUT`, and `DELETE` endpoints, the parameters may be sent as a `query string` or in the `request body` with content type  `application/json`. You may mix parameters between both the  `query string` and `request body` if you wish to do so.
-* Parameters may be sent in any order.
-* If a parameter sent in both the `query string` and `request body`, the`query string` parameter will be used.
-
 ###  Access Restrictions
 
 * If any rate limit is violated, a `429` error code will be returned
@@ -51,7 +44,7 @@
 
   * **READ** read permission is used for data query interfaces such as order query, transaction query, etc.
   * **TRADE** read-write permission is used for order placing, order cancelling, including transfer permission whereby user can transfer between subaccounts under the same main trading account
-* The user must set an IP whitelist for the API-KEY. Only IPs in the whitelist can call the API. Each API-KEY can bind up to 30 IPs. If the user has multiple API-KEYs, they must set an IP whitelist for each API-KEY individually.
+* Users need to set IP whitelist for API-KEY, only the IPs in the whitelist can call the API. Each API-KEY will be bound to maximum of 30 IPs.
 
 * Both private REST and WebSocket modes require users to authenticate the transaction through the API-KEY passed in the API header. Refer to the following Authentication chapter for the signature algorithm of the API-KEY.
 
@@ -124,12 +117,12 @@ These terms will be used throughout the documentation, so it is recommended espe
 
 | **VALUE** | **DESCRIPTION** |
 | --- | --- |
-|  PENDING_NEW| Conditional order waiting to be triggered.|
+|  PENDING_NEW| Conditional order waiting to be triggered. The order will not be added to the order book.|
 |  NEW| New order, pending to be filled.|
-|  PARTIAL_FILLED| Partially filled.|
-|  FILLED| Completed filled.|
-|  CANCELED| Order cancelled.|
-|  REJECT| Order refers to the rejection of an order during the order creating or matching process.|
+|  PARTIAL_FILLED| Partially filled, the remaining part pending to be filled.|
+|  FILLED| Completed filled. This is the final status of the order.|
+|  CANCELED| Order cancelled. This is the final status of the order.|
+|  REJECT| Order refers to the rejection of an order during the order creating or matching process. This is the final status of the order.|
 
 ### Order Types
 
