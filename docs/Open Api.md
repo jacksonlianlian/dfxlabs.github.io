@@ -8,7 +8,7 @@ Public key is your local public key generated using the ed25519 algorithm. The p
 
 You can create an API-KEY for your own account, or you can create a unique API-KEY for each sub-user. If you need to replace an API-KEY, you must first delete the old one before creating a new one.
 
-**1. How do you generate public and private keys? If you have any questions about generating private and public keys, you can refer to the specific steps at the bottom of the article in detail. [please refer Here.](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md#Generating-ed25519-Public-and-Private-Keys-Using-Command-Line-on-Windows-and-Mac)**
+**1. How do you generate public and private keys? If you have any questions about generating private and public keys, you can refer to the specific steps at the bottom of the article in detail. [please refer Here.](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Open%20Api.md#generating-ed25519-public-and-private-keys-using-command-line-on-windows-and-mac)**
 
 To generate an Ed25519 key pair in the command line and convert the private key to a Base64 encoded string, you can use the OpenSSL tool.
 Here's a way to generate an Ed25519 public and private key in the MacOS command line and convert it to a Base64-encoded string:
