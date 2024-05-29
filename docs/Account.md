@@ -109,8 +109,8 @@ User Api
 | accountId | STRING | NO | account's ID |
 | orderId | LONG | NO | order's ID |
 | fromId | LONG | NO | Starting tradeId |
-| startTime | LONG | NO | Start timestamp of conditional query |
-| endTime | LONG | NO | End timestamp of conditional query |
+| startTime | LONG | NO | Start timestamp of conditional query, Based on order creation time.|
+| endTime | LONG | NO | End timestamp of conditional query, Based on order creation time. |
 | limit | INTEGER | NO | The number of items returned per query is 10 by default, with a maximum limit of 100 items. |
 
 

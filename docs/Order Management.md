@@ -176,8 +176,8 @@ At least one of the two parameters, symbol or order ID, must be specified. If bo
 | orderId | LONG | NO | order's id|
 | fromId | LONG | NO | The order list is queried in reverse order. If you query the data of order number 10-1, and the parameters fromId=10, limit=5, the data of the order number in [10-5) will be queried.|
 | limit | INTEGER | NO | The number of items returned per query is 10 by default, with a maximum limit of 500 items.|
-| startTime    | LONG    | NO | StartTime in milliseconds ,eg:1678772870000
-| endTime    | LONG    | NO | endTime in milliseconds ,eg:1678772870000
+| startTime    | LONG    | NO | StartTime in milliseconds ,eg:1678772870000。Based on order creation time.
+| endTime    | LONG    | NO | endTime in milliseconds ,eg:1678772870000。Based on order creation time.
 
 
 

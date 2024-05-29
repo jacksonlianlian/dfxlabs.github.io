@@ -117,7 +117,7 @@ These terms will be used throughout the documentation, so it is recommended espe
 
 | **VALUE** | **DESCRIPTION** |
 | --- | --- |
-|  PENDING_NEW| Conditional order waiting to be triggered. The order will not be added to the order book.|
+|  PENDING_NEW| Conditional order waiting to be triggered. The order is not on the orderbook.|
 |  NEW| New order, pending to be filled.|
 |  PARTIAL_FILLED| Partially filled, the remaining part pending to be filled.|
 |  FILLED| Completed filled. This is the final status of the order.|

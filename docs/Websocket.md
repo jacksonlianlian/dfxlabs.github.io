@@ -109,7 +109,7 @@ Subscribe Websocket
 # Quick Socket connect
 
 ## How to connect？
-`Please use ws://dfx.hk/ws/market?format=JSON to connect,When there is no heartbeat, the connection can be maintained for up to 180s.This subscription connection can access most public topics, but if you need to access private topics, then you need to add your EXXCHANGE-API-KEY in the header. For specific operations, please refer to [OpenAPi](https://github.com /dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md), please note that this is the only credential that you have access to.`
+`Please use ws://dfx.hk/ws/market?format=JSON to connect,When there is no heartbeat, the connection can be maintained for up to 180s.This subscription connection can access most public topics, but if you need to access private topics, then you need to add your EXXCHANGE-API-KEY in the header. For specific operations, please refer to [OpenAPi](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md), please note that this is the only credential that you have access to.`
 
 | **FIELD** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
