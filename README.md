@@ -17,16 +17,16 @@
 
 1. [Authentication](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Authentication.md)
 
-2. [Error Codes](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/ErrorCodes.md)
+2. [Error Codes](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Error%20Codes.md)
 
 3. [Getting Started](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Getting%20Started.md)
 
-4. [Open Api](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/OpenApi.md)
+4. [Open Api](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Open%20Api.md)
 
-5. [Order Management](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/OrderManagement.md)
+5. [Order Management](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Order%20Management.md)
 
-6. [Public Market Data](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Public-Market-Data.md)
+6. [Public Market Data](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Public%20Market%20Data.md)
 
-7. [Account](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/UserInfo.md)
+7. [Account](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Account.md)
 
 8. [Websocket](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Websocket.md)
