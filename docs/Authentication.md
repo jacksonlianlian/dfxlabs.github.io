@@ -56,16 +56,16 @@ All HTTP requests to API endpoints require authentication and authorization. The
 | EXCHANGE-API-TIMESTAMP | TIMESTAMP  | Long | milliseconds, such as 1706772548231, Used to indicate the time when the request was initiated |
 
 #### Time-base security requirement
-    If your timestamp is ahead of serverTime it needs to be within 1 Mins
+    If your timestamp is ahead of serverTime it needs to be within 5 Seconds
 
 *   For a SIGNED endpoint, an additional parameter "timestamp" needs to be included in the request. This timestamp is in **milliseconds** and reflect the time when the request was intitated
-*   The timestamp is based on the server's time and cannot exceed 1 Mins before or after.
+*   The timestamp is based on the server's time and cannot exceed 5 Seconds before or after.
 
 
 	The logic of this parameter is as follows:
 
 ``` java
- if (timestamp.between(serverTime - 60000, serverTime + 60000))) {
+ if (timestamp.between(serverTime - 5000, serverTime + 5000))) {
 	 // process request
  } else {
 	 // reject request
