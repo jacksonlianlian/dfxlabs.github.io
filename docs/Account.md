@@ -43,13 +43,13 @@ User Api
 
 
 
-# 2、 Get Account Blance information
+# 2、 Get Account Balance information
 ## GET `/api/v1/account/balance`
 
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
-| accountId | STRING | YES | Trading pair |
+| accountId | STRING | YES | account ID |
 | token             | STRING    | NO | Pair Code,eg:'ETH'
 
 
