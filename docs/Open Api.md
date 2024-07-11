@@ -48,6 +48,12 @@ Here's a way to generate an Ed25519 public and private key in the MacOS command 
 
 
 
+	### Rate Limit
+	- Unless explicitly stated otherwise, each API Key has a default rate limit of 5 requests per second for query-related endpoints, while order-related endpoints allow 10 requests per second
+
+	- When the number of orders exceeds the set limit, a response with an HTTP CODE 429 will be received. Please wait 1 minute for the suspended period to expire.
+
+
 ### Api Key permission
 
 | Url | Method | What roles can access |Describe|
