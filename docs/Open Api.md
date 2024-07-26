@@ -80,118 +80,98 @@ Here's a way to generate an Ed25519 public and private key in the MacOS command 
         <td>Endpoint</td>
         <td>Rate limit rule</td>
         <td>API Request</td>
-	<td>Description</td>
-	<td>Rate limit</td>
+				<td>Description</td>
+				<td>Rate limit</td>
     </tr>
     <tr>
         <td rowspan=7 colspan=1>Market Data</td>
         <td rowspan=7 colspan=1>IP+API Request</td>
-	<td rowspan=1 colspan=1>GET /api/v1/spot/depth</td>
-	<td rowspan=1 colspan=1>Get Depth information</td>
-	<td rowspan=1 colspan=1>1 every 2 second</td>
+				<td rowspan=1 colspan=1>GET /api/v1/spot/depth</td>
+				<td rowspan=1 colspan=1>Get Depth information</td>
+				<td rowspan=1 colspan=1>1 every 2 second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/spot/trade</td>
-	<td rowspan=1 colspan=1>Get Recent Transaction Records information</td>
-	<td rowspan=1 colspan=1>1 every 2 second</td>
+				<td rowspan=1 colspan=1>GET /api/v1/spot/trade</td>
+				<td rowspan=1 colspan=1>Get Recent Transaction Records information</td>
+				<td rowspan=1 colspan=1>1 every 2 second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/spot/kline
-</td>
-	<td rowspan=1 colspan=1>Get Kline information</td>
-	<td rowspan=1 colspan=1>1 every 2 second</td>
+			<td rowspan=1 colspan=1>GET /api/v1/spot/kline</td>
+			<td rowspan=1 colspan=1>Get Kline information</td>
+			<td rowspan=1 colspan=1>1 every 2 second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/spot/ticker/24hr</td>
-	<td rowspan=1 colspan=1>Get Quotes in the last 24 hours information</td>
-	<td rowspan=1 colspan=1>1 every 2 second</td>
+			<td rowspan=1 colspan=1>GET /api/v1/spot/ticker/24hr</td>
+			<td rowspan=1 colspan=1>Get Quotes in the last 24 hours information</td>
+			<td rowspan=1 colspan=1>1 every 2 second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/spot/ticker/price</td>
-	<td rowspan=1 colspan=1>Get Latest price information</td>
-	<td rowspan=1 colspan=1>1 every 2 second</td>
+			<td rowspan=1 colspan=1>GET /api/v1/spot/ticker/price</td>
+			<td rowspan=1 colspan=1>Get Latest price information</td>
+			<td rowspan=1 colspan=1>1 every 2 second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/spot/ticker/book_ticker</td>
-	<td rowspan=1 colspan=1>Get Symbol Order Top Of Book information</td>
-	<td rowspan=1 colspan=1>1 every 2 second</td>
+			<td rowspan=1 colspan=1>GET /api/v1/spot/ticker/book_ticker</td>
+			<td rowspan=1 colspan=1>Get Symbol Order Top Of Book information</td>
+			<td rowspan=1 colspan=1>1 every 2 second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/symbols</td>
-	<td rowspan=1 colspan=1>Get Symbol Basic information</td>
-	<td rowspan=1 colspan=1>1 every 2 second</td>
+			<td rowspan=1 colspan=1>GET /api/v1/symbols</td>
+			<td rowspan=1 colspan=1>Get Symbol Basic information</td>
+			<td rowspan=1 colspan=1>1 every 2 second</td>
     </tr>
     <tr>
-        <td rowspan=6 colspan=1>Order</td>
-        <td rowspan=6 colspan=1>API KEY+API Request</td>
-	<td rowspan=1 colspan=1>POST /api/v1/spot/order</td>
-	<td rowspan=1 colspan=1>Create  Order</td>
-	<td rowspan=1 colspan=1>10 per second</td>
+      <td rowspan=6 colspan=1>Order</td>
+      <td rowspan=6 colspan=1>API KEY+API Request</td>
+			<td rowspan=1 colspan=1>POST /api/v1/spot/order</td>
+			<td rowspan=1 colspan=1>Create  Order</td>
+			<td rowspan=1 colspan=1>10 per second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>DELETE /api/v1/spot/order</td>
-	<td rowspan=1 colspan=1>Cancel a single order</td>
-	<td rowspan=1 colspan=1>10 per second</td>
+			<td rowspan=1 colspan=1>DELETE /api/v1/spot/order</td>
+			<td rowspan=1 colspan=1>Cancel a single order</td>
+			<td rowspan=1 colspan=1>10 per second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>DELETE /api/v1/spot/batch/order</td>
-	<td rowspan=1 colspan=1>Batch Cancel Order</td>
-	<td rowspan=1 colspan=1>1 per second</td>
+			<td rowspan=1 colspan=1>DELETE /api/v1/spot/batch/order</td>
+			<td rowspan=1 colspan=1>Batch Cancel Order</td>
+			<td rowspan=1 colspan=1>1 per second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/spot/order</td>
-	<td rowspan=1 colspan=1>Get User Order List</td>
-	<td rowspan=1 colspan=1>1 per second</td>
+			<td rowspan=1 colspan=1>GET /api/v1/spot/order</td>
+			<td rowspan=1 colspan=1>Get User Order List</td>
+			<td rowspan=1 colspan=1>1 per second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/spot/finish_order</td>
-	<td rowspan=1 colspan=1>Get completed orders information</td>
-	<td rowspan=1 colspan=1>1 per second</td>
+			<td rowspan=1 colspan=1>GET /api/v1/spot/finish_order</td>
+			<td rowspan=1 colspan=1>Get completed orders information</td>
+			<td rowspan=1 colspan=1>1 per second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/spot/open_order</td>
-	<td rowspan=1 colspan=1>Query unfinished orders information</td>
-	<td rowspan=1 colspan=1>1 per second</td>
+			<td rowspan=1 colspan=1>GET /api/v1/spot/open_order</td>
+			<td rowspan=1 colspan=1>Query unfinished orders information</td>
+			<td rowspan=1 colspan=1>1 per second</td>
     </tr>
     <tr>
-        <td rowspan=3 colspan=1>Account</td>
-        <td rowspan=3 colspan=1>API KEY+API Request</td>
-	<td rowspan=1 colspan=1>GET /api/v1/user/info</td>
-	<td rowspan=1 colspan=1>Get User information</td>
-	<td rowspan=1 colspan=1>1 per second</td>
+      <td rowspan=3 colspan=1>Account</td>
+      <td rowspan=3 colspan=1>API KEY+API Request</td>
+			<td rowspan=1 colspan=1>GET /api/v1/user/info</td>
+			<td rowspan=1 colspan=1>Get User information</td>
+			<td rowspan=1 colspan=1>1 per second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/account/balance</td>
-	<td rowspan=1 colspan=1>Get Account Balance information</td>
-	<td rowspan=1 colspan=1>1 per second</td>
+			<td rowspan=1 colspan=1>GET /api/v1/account/balance</td>
+			<td rowspan=1 colspan=1>Get Account Balance information</td>
+			<td rowspan=1 colspan=1>1 per second</td>
     </tr>
     <tr>
-	<td rowspan=1 colspan=1>GET /api/v1/account/trades</td>
-	<td rowspan=1 colspan=1>Get Account Trade List information</td>
-	<td rowspan=1 colspan=1>1 per second</td>
+			<td rowspan=1 colspan=1>GET /api/v1/account/trades</td>
+			<td rowspan=1 colspan=1>Get Account Trade List information</td>
+			<td rowspan=1 colspan=1>1 per second</td>
     </tr>
 </table>
 
 
-| Url | Method | What roles can access |Describe|
-| --- | --- | --- |--- |
-|/api/v1/spot/depth| GET| ALL|
-|/api/v1/symbols| GET| ALL|
-|/api/v1/spot/trade| GET| ALL|
-|/api/v1/spot/kline| GET| ALL|
-|/api/v1/spot/ticker/24hr| GET| ALL|
-|/api/v1/spot/ticker/price| GET| ALL|
-|/api/v1/spot/ticker/book_ticker| GET| ALL|
-|/ws/**| GET| ALL| Websocket|
-|/api/v1/user/info| GET| Administrator、Trader|
-|/api/v1/account/balance| GET| Administrator、Trader|
-|/api/v1/account/trades| GET| Administrator、Trader|Check account transaction｜
-|/api/v1/spot/test/order| POST| Administrator、Trader|Test whether the order can be created｜
-|/api/v1/spot/order| POST| Administrator、Trader|Create order|
-|/api/v1/spot/order| DELETE| Administrator、Trader|Cancel order|
-|/api/v1/spot/order| GET| Administrator、Trader|Search order|
-|/api/v1/spot/open_order| GET| Administrator、Trader|Get pending orders|
-|/api/v1/spot/finish_order| GET| Administrator、Trader|Get completed orders|
 
 #### Upload the Public Key to DFX
 
