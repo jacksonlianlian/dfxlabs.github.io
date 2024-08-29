@@ -105,7 +105,7 @@ User Api
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
-| symbol | STRING | YES | Trading pair,eg:`BTC-USDT` |
+| symbol | STRING | NO | Trading pair,eg:`BTC-USDT` |
 | accountId | STRING | NO | account's ID |
 | orderId | LONG | NO | order's ID |
 | fromId | LONG | NO | Starting tradeId |
