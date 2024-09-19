@@ -120,7 +120,7 @@ At least one of the two parameters, symbol or order ID, must be specified. If bo
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |
 | accountId | STRING | YES | user's accountId |
-| orderId    | LONG    | YES | Order Id|
+| orderId    | LONG    | NO | Order Id|
 | clientOrderId | STRING | NO | Order id pass by api user |
 
 

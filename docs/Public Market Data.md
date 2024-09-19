@@ -148,7 +148,7 @@
 
 
 
-# 5. Get Latest price information
+# 5. Get Latest price（reference Price） information
 GET `/api/v1/spot/ticker/price`
 
 
