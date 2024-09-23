@@ -190,6 +190,17 @@ Here's a way to generate an Ed25519 public and private key in the MacOS command 
 ![Image title](https://dfx-test-public.s3.ap-east-1.amazonaws.com/image/step-4.png)
 
 
+* Note
+```
+Once the client uploads the ED25519 public key, the DFX platform will generate a 96-character string as the
+unique identifier for the ED25519 key pair. The client needs to click the "View" button next to the newly
+created API key. After authentication, this string will be displayed on the screen. The client needs to
+download it and paste it into the EXCHANGE-API-KEY field in the header of each RESTful request.
+```
+```
+Please note that the selection of API key permission types is only applicable to institutional clients and
+is currently not available for individual clients.
+```
 
 #### Use ‘Api-Key’ as ‘EXCHANGE-API-KEY’ in the request header
 

@@ -46,7 +46,7 @@ Order Management
 
 ```
 
-**If the order is created successfully, the server will return the following example**
+**If the order is created successfully, the server will return the following example, The returned data content is orderId.**
 
 ``` java
 {
@@ -68,7 +68,14 @@ Order Management
 | orderId    | LONG    | NO | Order Id|
 | clientOrderId | STRING | NO | Order id pass by api user |
 
+```javascript
+The parameters orderId and clientOrderId require at least one to be selected.
+The single cancel order interface currently supports 3 parameters, among which accountId is mandatory.
+If either orderId or clientOrderId is to be chosen, the parameter rules are as follows:
 
+1. Cancellation is prioritized based on orderId. If both orderId and clientOrderId are provided,
+the order will be cancelled based only on the orderId.
+```
 
 ``` markdown
 {
@@ -91,8 +98,14 @@ DELETE `/api/v1/spot/batch/order`
 | orderIds    | STRING    | NO | Multiple order numbers, separated by commas. eg:2000000074758463,2000000074758464|
 
 
-**Supports cancelling orders in batches, either based on symbol or specific order IDs specified by the user. If a symbol is specified, all orders for that symbol will be canceled. If order IDs are specified, up to 5 orders can be canceled at once.
-At least one of the two parameters, symbol or order ID, must be specified. If both parameters are specified, orders will be canceled based on the order ID first.**
+```javascript
+Supports cancelling orders in batches, either based on symbol or specific order IDs specified by the user. If a symbol is specified, all orders for that symbol will be canceled. If order IDs are specified, up to 5 orders can be canceled at once.
+At least one of the two parameters, symbol or order ID, must be specified. If both parameters are specified, orders will be canceled based on the order ID first.
+
+The batch cancel order interface currently supports 3 parameters, with accountId being mandatory. Either orderIds or symbol must be provided. If both symbol and orderIds are specified, cancellation will only proceed based on orderIds. The order of operations is as follows:
+
+1. If both orderIds and symbol are provided, the orders will be cancelled based solely on the orderIds.
+```
 
 
 ``` java
