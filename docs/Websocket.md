@@ -40,7 +40,7 @@ Subscribe Websocket
 
 ### Credentials required
 
-| **TOPIC** | **SUBJECT** | **Mandatory LOGIN** | **Push frequency** | **DESCRIPTION** |
+| **TOPIC** | **SUBJECT** | EXCHANGE-API-KEY | **Push frequency** | **DESCRIPTION** |
 | --- | --- | --- | --- |  --- |
 | COMMON | ACCOUNT | YES | immediately |  Balance update |
 | SPOT | ORDER | YES | immediately |  Order update |
@@ -115,16 +115,34 @@ Subscribe Websocket
 | --- | --- | --- | --- |
 | format | STRING | NO, default `PROTOBUF` | message type.eg:`PROTOBUF` The data is binary and will be compressed. `JSON` Readable json string |
 
-If the following is returned, the connection is successfully established.
-
+`If the following is returned, the connection is successfully established.`
+```javascript
 {
   "id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd",  //后端用户会话的session  ID
   "type":"WELCOME"   //响应结果类型
 }
+```
 
+### How to subscribe to a private channel (you need to add the 'EXCHANGE-API-KEY' field in the header)
+![subscribe to a private channel](https://dfx-test-public.s3.ap-east-1.amazonaws.com/image/dfx-socket-example-1.png)
+`Here is an example of connecting to a private channel using Python`
+``` Python
+import asyncio
+import websockets
 
+async def connect_to_websocket():
+    uri = "wss://api.dfx.hk/ws/market?format=JSON"
+    headers = {
+        "EXCHANGE-API-KEY": "Your API KEY"
+    }
 
+    async with websockets.connect(uri, extra_headers=headers) as websocket:
+        response = await websocket.recv()
+        print(f"Received message: {response}")
 
+asyncio.run(connect_to_websocket())
+
+```
 
 ## How to disConnect？
 
@@ -252,7 +270,6 @@ Then, the server returns the following message
 				"st": " ",        //触发方向
 				"ss": " ",        //计划委托状态
 				"sp": " ",        //触发价
-				"ap": " ",        //均价
 				"f": " ",         //备注
 				"ct": 1707122929778,    //创建时间
 				"mt": 1707122929996     //修改时间

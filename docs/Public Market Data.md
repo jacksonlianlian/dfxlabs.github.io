@@ -151,10 +151,13 @@
 
 # 5. Get Latest price（reference Price） information
 GET `/api/v1/spot/ticker/price`
-**Please note that the reference price is the last transaction price of frequently traded items. If there are no
- transactions within a certain period, DFX will set the reference price to the average market price. For more
- details, please refer to the DFX Labs Trading Rules and Operations (https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Public%20Market%20Data.md).
-**
+
+###  Note
+* Please note that the reference price is the last transaction price of frequently traded items.
+If there are no transactions within a certain period, DFX will set the reference price to the
+average market price. For more details, please refer to the DFX Labs Trading Rules and Operations
+[please refer Here.](https://github.com/dfxlabs/dfxlabs.github.io/blob/main/docs/Public%20Market%20Data.md).
+
 
 | **PARAMETER** | **TYPE** | **Mandatory** | **DESCRIPTION** |
 | --- | --- | --- | --- |

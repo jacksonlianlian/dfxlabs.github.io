@@ -99,10 +99,14 @@ DELETE `/api/v1/spot/batch/order`
 
 
 ```javascript
-Supports cancelling orders in batches, either based on symbol or specific order IDs specified by the user. If a symbol is specified, all orders for that symbol will be canceled. If order IDs are specified, up to 5 orders can be canceled at once.
-At least one of the two parameters, symbol or order ID, must be specified. If both parameters are specified, orders will be canceled based on the order ID first.
+Supports cancelling orders in batches, either based on symbol or specific orderIds specified by the user. If a symbol
+is specified, all orders for that symbol will be canceled. If order IDs are specified, up to 5 orders can be canceled
+at once.At least one of the two parameters, symbol or orderId, must be specified. If both parameters are specified,
+orders will be canceled based on the orderId first.
 
-The batch cancel order interface currently supports 3 parameters, with accountId being mandatory. Either orderIds or symbol must be provided. If both symbol and orderIds are specified, cancellation will only proceed based on orderIds. The order of operations is as follows:
+The batch cancel order interface currently supports 3 parameters, with accountId being mandatory. Either orderIds
+or symbol must be provided. If both symbol and orderIds are specified, cancellation will only proceed based on orderIds.
+ The order of operations is as follows:
 
 1. If both orderIds and symbol are provided, the orders will be cancelled based solely on the orderIds.
 ```
@@ -126,7 +130,7 @@ The batch cancel order interface currently supports 3 parameters, with accountId
 
 
 
-# 4、 Get User Order List.
+# 4、 Get Single User Order.
 ## GET `/api/v1/spot/order`
 
 
@@ -136,12 +140,19 @@ The batch cancel order interface currently supports 3 parameters, with accountId
 | orderId    | LONG    | NO | Order Id|
 | clientOrderId | STRING | NO | Order id pass by api user |
 
+```
+The get User order list interface currently supports 3 parameters, with accountId being mandatory. Either orderId
+or clientOrderId must be provided. If both clientOrderId and orderId are specified, cancellation will only proceed based on orderId.
+ The order of operations is as follows:
+
+1. If both orderId and clientOrderId are provided, the order will be searched based solely on the orderId.
+```
 
 ``` java
 {
 	"code": "0",
 	"msg": "success",
-	"data": [{
+	"data": {
 		"clientOid": " ",
 		"orderId": 2000000074758463,
 		"accountId": "2",
@@ -156,22 +167,7 @@ The batch cancel order interface currently supports 3 parameters, with accountId
 		"orderType": "LIMIT",
 		"stopStatus": "PENDING",
 		"failedReason": " "
-	}, {
-		"clientOid": " ",
-		"orderId": 2000000074758423,
-		"accountId": "2",
-		"side": "BUY",
-		"symbol": "BTC-USDT",
-		"price": "70613.48",
-		"quantity": "0.00036",
-		"amount": "25.4208528",
-		"status": "NEW",
-		"tradeQty": "0",
-		"tradeAmount": "0",
-		"orderType": "LIMIT",
-		"stopStatus": "PENDING",
-		"failedReason": " "
-	}]
+	}
 }
 
 ```
@@ -187,7 +183,6 @@ The batch cancel order interface currently supports 3 parameters, with accountId
 | accountId | STRING | YES | user's accountId |
 | symbol | STRING | NO | Trading pair |
 | orderId | LONG | NO | order's id|
-| fromId | LONG | NO | The order list is queried in reverse order. If you query the data of order number 10-1, and the parameters fromId=10, limit=5, the data of the order number in [10-5) will be queried.|
 | limit | INTEGER | NO | The number of items returned per query is 10 by default, with a maximum limit of 500 items.|
 | startTime    | LONG    | NO | StartTime in milliseconds ,eg:1678772870000。Based on order creation time.
 | endTime    | LONG    | NO | endTime in milliseconds ,eg:1678772870000。Based on order creation time.
