@@ -99,16 +99,43 @@ asyncio.run(connect_to_websocket())
 
 
 ## How to subscribe Topic？
+`Now let's explore how to establish subscriptions for public and private channels, as well as the return formats after successful subscription.`
 
+## Format and Explanation of Subscription Fields
+
+| **COLUMN** | **DESCRIPTION** |
+| --- |  --- |
+| id | Message Identifier |
+| type | Subscription Type |
+| topic | Subscription Channel |
+| subjects | Subscription Topics |
 
 ### Subscribe symbol latest trade data
 
+
 ``` javascript
 {
-		"id": "9f4b9d0eb5a74a40b76bc3cdca05cb4e",     //消息ID
-		"type": "MESSAGE",                         //消息类型
-		"topic": "spot_trade",                     //主题
-		"subjects": ["BTC-USDT"],                    //科目
+  "id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd",
+  "type":"SUBSCRIBE",  
+  "topic":"spot_trade",
+  "subjects":["BTC-USDT"]
+}
+
+```
+
+`Response format`
+
+```javascript
+{"id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd","type":"ACK"}
+```
+
+``` javascript
+
+{
+		"id": "9f4b9d0eb5a74a40b76bc3cdca05cb4e",
+		"type": "MESSAGE",                       
+		"topic": "spot_trade",                   
+		"subjects": ["BTC-USDT"],                
 		"sn": 0,
 		"body": {
 				"e": "trade",              //事件类型
@@ -118,6 +145,8 @@ asyncio.run(connect_to_websocket())
 				"p": "42533",              //成交价格
 				"q": "0.001",              //成交数量
 				"T": 1707126585679,        //成交时间
+        "b": 2000000275523028,     //买方订单id
+        "a": 2000000275531886,     //卖方订单id
 				"m": true                  //是否是maker买, isBuyMaker = trade.getTakerOrderSide() == OrderSide.SELL.getCode()
 		}
 }
@@ -129,22 +158,47 @@ asyncio.run(connect_to_websocket())
 
 ``` javascript
 {
-		"id": "ed7e4e0d9c5b4303ada167658d6bd03f",   //消息ID
-		"type": "MESSAGE",       //消息类型
-		"topic": "spot_depth",   //主题
-		"subjects": ["BTC-USDT"],   //科目
-		"sn": 0,
-		"body": {    //正文数据
-				"e": "depthUpdate",  //事件类型
-				"E": 1707122929997,  //事件时间
-				"s": "BTC-USDT",     //交易对
-				"U": 314,            //第一个更新ID
-				"u": 314,            //最后更新ID
-				"a": [],             //卖盘[价格，数量]
-				"b": [               //卖盘[价格，数量]
-						["42532", "0.001"]
-				]
-		}
+  "id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd",
+  "type":"SUBSCRIBE",  
+  "topic":"spot_depth5",
+  "subjects":["BTC-USDT"]
+}
+
+```
+
+`You can subscribe to other topics, such as spot_depth10 and spot_depth20, which will return the corresponding amount of depth information.`
+
+`Response format`
+
+```javascript
+{"id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd","type":"ACK"}
+```
+
+``` javascript
+{
+	"id": "d3e096a94bf44c989815590f354c2e3d",  
+	"type": "MESSAGE",
+	"topic": "spot_depth5",
+	"subject": "BTC-USDT",
+	"sn": 0,
+	"body": {
+		"lastUpdateId": 211754,
+		"symbol": "BTC-USDT",
+		"asks": [ //卖盘[价格，数量]
+			["64114.95", "0.00312"],
+			["64130.98", "0.00468"],
+			["64150.21", "0.0078"],
+			["64166.24", "0.01559"],
+			["64179.06", "0.01559"]
+		],
+		"bids": [ //买盘[价格，数量]
+			["64102.13", "0.00305"],
+			["64086.1", "0.00469"],
+			["64066.87", "0.00781"],
+			["64050.84", "0.01562"],
+			["64038.02", "0.01562"]
+		]
+	}
 }
 ```
 
@@ -152,24 +206,29 @@ asyncio.run(connect_to_websocket())
 
 ``` javascript
 {
-  "id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd",  //消息ID
-  "type":"SUBSCRIBE",   //操作类型
-  "topic":"spot_kline_1m", //操作主题
-  "subjects":["BTC-USDT"] //操作科目
+  "id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd",
+  "type":"SUBSCRIBE",  
+  "topic":"spot_kline_1m",
+  "subjects":["BTC-USDT"]
 }
 
 ```
 
-* Response format
+`Response format`
 
+```javascript
+{"id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd","type":"ACK"}
+```
+
+`Recevie data format`
 ``` javascript
 {
-		"id": "a42824af27dd4f79bf200e552c3f7b91", //消息ID
-		"type": "MESSAGE",   //响应类型
-		"topic": "spot_kline_1m",   //订阅主题
-		"subject": "BTC-USDT",   //订阅的科目
+		"id": "a42824af27dd4f79bf200e552c3f7b91",
+		"type": "MESSAGE",
+		"topic": "spot_kline_1m",  
+		"subject": "BTC-USDT",
 		"sn": 0,
-		"body": {   //正文数据
+		"body": {  
 				"e": "kline",   //事件类型
 				"E": 1707118140000,  //事件时间
 				"s": "BTC-USDT",   //交易对
@@ -178,6 +237,8 @@ asyncio.run(connect_to_websocket())
 						"T": 1707118139999,   //k线结束时间
 						"s": "BTC-USDT",   //交易对
 						"i": "1m",   //周期
+            "f":0, //first tradeId during the kline startTime and closeTime
+            "L":0, //last tradeId during the kline startTime and closeTime
 						"o": "1.1",  //开盘价
 						"c": "1.1",  //收盘价
 						"h": "1.1",  //最高价
@@ -193,17 +254,80 @@ asyncio.run(connect_to_websocket())
 }
 ```
 
+### Subscribe lately 24 Hour ticker
+
+``` javascript
+{
+  "id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd",
+  "type":"SUBSCRIBE",  
+  "topic":"spot_24hr_ticker",
+  "subjects":["BTC-USDT"]
+}
+
+```
+
+`Response format`
+
+```javascript
+{"id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd","type":"ACK"}
+```
+
+`Recevie data format`
+``` javascript
+{
+	"id": "6f8d9b9ea7124d1f86a20800cbc22fac",
+	"type": "MESSAGE",
+	"topic": "spot_24hr_ticker",
+	"subject": "BTC-USDT",
+	"sn": 0,
+	"body": {
+		"e": "24hrTicker",  //eventType
+		"E": 1727244748599, //current time milli
+		"s": "BTC-USDT",  //symbol
+		"c": "813.26",  //price change value
+		"cp": "1.28", //price change percentage
+		"w": "64660.7611913419913419",  //weighted avg price
+		"p": "64081.59",  //last trade price
+		"r": "64094.41",  //current reference price
+		"o": "63268.33",  //open price
+		"h": "70000", //highest price
+		"l": "62760.42",  //lowest price
+		"v": "0.3465",  //Trading Volume
+		"V": "22404.9537528", //Trading Amount
+		"t": 1727158348000, //open time
+		"T": 1727244748000, //close time
+		"n": 3585 //count of trades happened during the kline startTime and closeTime
+	}
+}
+```
 
 ### Subscribe User Order Data
 
 ``` javascript
 {
-		"id": "c6e7becf00654002bd6b4e6ee5c61d17",   //消息ID
-		"type": "MESSAGE",   //消息类型
-		"topic": "SPOT",     //主题
-		"subjects": ["ORDER"],  //科目
+  "id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd",
+  "type":"SUBSCRIBE",  
+  "topic":"SPOT",
+  "subjects":["ORDER"]
+}
+
+```
+
+`Response format`
+
+```javascript
+{"id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd","type":"ACK"}
+```
+
+
+``` javascript
+{
+		"id": "c6e7becf00654002bd6b4e6ee5c61d17",  
+		"type": "MESSAGE",  
+		"topic": "SPOT",   
+		"subject": "ORDER",
 		"sn": 0,
-		"body": { //正文
+		"body": {
 				"e": "orderUpdate",   //事件类型
 				"E": 1707122929996,   //事件时间
 				"s": "BTC-USDT",      //交易对
@@ -232,12 +356,29 @@ asyncio.run(connect_to_websocket())
 ```
 
 ### Subscribe User Trade Data
+
 ``` javascript
 {
-		"id": "19d645cc3d4b47c19e3f034097fc56e1",     //消息ID
-		"type": "MESSAGE",     //消息类型
-		"topic": "SPOT",      //主题
-		"subjects": ["TRADE"],   //科目
+  "id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd",
+  "type":"SUBSCRIBE",  
+  "topic":"SPOT",
+  "subjects":["TRADE"]
+}
+
+```
+
+`Response format`
+
+```javascript
+{"id":"af1183cd-f04c-4517-b563-2d3d3d7edbcd","type":"ACK"}
+```
+
+``` javascript
+{
+		"id": "19d645cc3d4b47c19e3f034097fc56e1",   
+		"type": "MESSAGE",  
+		"topic": "SPOT",    
+		"subjects": ["TRADE"],
 		"sn": 0,
 		"body": {
 				"e": "tradeUpdate",      //事件类型
@@ -268,18 +409,18 @@ asyncio.run(connect_to_websocket())
 ``` javascript
   {
   	"id": "e6b46d0e-cda3-48e4-9cc9-abb5e27e71bf",    //前端自定义一个uuid，用于接收识别响应结果
-  	"type": "UNSUBSCRIBE",    //操作类型
-  	"topic":"spot_kline_1m"  //取消订阅主题
-  	"subjects": ["BTC-USDT"]   //取消订阅的科目
+  	"type": "UNSUBSCRIBE",  
+  	"topic":"spot_kline_1m",
+  	"subjects": ["BTC-USDT"]
   }
 
 ```
 `Then, the server returns the following message`
-```java
+```javascript
 
   {
-  	"id":"e6b46d0e-cda3-48e4-9cc9-abb5e27e71bf",  //订阅操作ID
-  	"type":"ACK"  //响应类型
+  	"id":"e6b46d0e-cda3-48e4-9cc9-abb5e27e71bf",  
+  	"type":"ACK"  
   }
 ```
 
@@ -291,14 +432,16 @@ asyncio.run(connect_to_websocket())
 `If you need to tell the server that it needs to disconnect the current socket, you can send the following message`
 ``` javascript
 {
-	"id": "e6b46d0e-cda3-48e4-9cc9-abb5e27e71bc",    //前端自定义一个uuid，用于接收识别响应结果
+	"id": "e6b46d0e-cda3-48e4-9cc9-abb5e27e71bc",
 	"type": "BYE"
 }
 
-Then, the server returns the following message
+```
+`Then, the server returns the following message`
+```javascript
 
 {
-	"id":"e6b46d0e-cda3-48e4-9cc9-abb5e27e71bc",  //订阅操作ID
-	"type":"ACK"  //响应类型
+	"id":"e6b46d0e-cda3-48e4-9cc9-abb5e27e71bc",  
+	"type":"ACK"
 }
 ```
