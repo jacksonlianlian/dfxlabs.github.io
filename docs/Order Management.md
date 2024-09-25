@@ -142,7 +142,7 @@ or symbol must be provided. If both symbol and orderIds are specified, cancellat
 
 ```
 The get User order list interface currently supports 3 parameters, with accountId being mandatory. Either orderId
-or clientOrderId must be provided. If both clientOrderId and orderId are specified, cancellation will only proceed based on orderId.
+or clientOrderId must be provided. If both clientOrderId and orderId are specified, The get User order will only proceed based on orderId.
  The order of operations is as follows:
 
 1. If both orderId and clientOrderId are provided, the order will be searched based solely on the orderId.
