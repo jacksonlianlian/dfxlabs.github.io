@@ -23,20 +23,10 @@
 
 * Request Parameters can be sent in any order.
 
-###  Access Restrictions
-
-* If any rate limit is violated, a `429` error code will be returned
-
-* Upon receiving `429` error code, please take precautionary steps to cease sending requests. API abuse is strictly prohibited
-
-* It is recommended to use Websocket API to obtain corresponding real-time data as much as possible to reduce the traffic of access restrictions caused by frequent API requests.
-
-
 
 ###  API-KEY Management
 
-
-* Users have to log in the exchange website and apply for an API-KEY, please make sure to remember the following information when creating an API key:
+* Users must log in to the exchange website and apply for an API key. Please ensure you remember the following information when creating an API key:
 
 * **EXCHANGE-API-KEY**: API access key
 * **Public Key**: The key used for signature authentication encryption, Uploaded by users themselves (visible to the application only)
@@ -47,6 +37,16 @@
 * Users need to set IP whitelist for API-KEY, only the IPs in the whitelist can call the API. Each API-KEY will be bound to maximum of 30 IPs.
 
 * Both private REST and WebSocket modes require users to authenticate the transaction through the API-KEY passed in the API header. Refer to the following Authentication chapter for the signature algorithm of the API-KEY.
+
+
+###  Access Restrictions
+
+* If any rate limit is violated, a `429` error code will be returned
+
+* Upon receiving `429` error code, please take precautionary steps to cease sending requests. API abuse is strictly prohibited
+
+* It is recommended to use the WebSocket API to obtain corresponding real-time data as much as possible to reduce the traffic caused by frequent API requests.
+
 
 
 ## Public Rest API for exchange
@@ -97,20 +97,20 @@ These terms will be used throughout the documentation, so it is recommended espe
 
 | **VALUE** | **DESCRIPTION** |
 | --- | --- |
-|  M1| every minute|
-|  M3| every 3 minutes|
-|  M5| every 5 minutes|
-|  M15| every 15 minutes|
-|  M30| every 30 minutes|
-|  H1| every 1 hour|
-|  H2| every 2 hours|
-|  H4| every 4 hours|
-|  H6| every 6 hours|
-|  H8| every 8 hours|
-|  H12| every 12 hours|
-|  D1| every 1 day|
-|  W1| every 1 week|
-|  MON1| every 1 month|
+|  1m| every minute|
+|  3m| every 3 minutes|
+|  5m| every 5 minutes|
+|  15m| every 15 minutes|
+|  30m| every 30 minutes|
+|  1h| every 1 hour|
+|  2h| every 2 hours|
+|  4h| every 4 hours|
+|  6h| every 6 hours|
+|  8h| every 8 hours|
+|  12h| every 12 hours|
+|  1d| every 1 day|
+|  1w| every 1 week|
+|  1M| every 1 month|
 
 
 ### Order Status
